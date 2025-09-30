@@ -6,20 +6,101 @@ using UnityEngine.SceneManagement;
 public class LevelManager : MonoBehaviour
 {
     [Header("Level Settings")]
-    [SerializeField] private string levelName;
-    [SerializeField] private int levelIndex;
-    [SerializeField] private bool isLevelCompleted = false;
+    [SerializeField] private string levelName;// Name of the level to load
+    [SerializeField] private int levelIndex;// Index of the level in build settings
+    [SerializeField] private Transform playerSpawnPoint;// Player spawn point in the level
+    public bool isLevelLoaded = false;// Level loading status
+    public List<AsyncOperation> scenesLoading = new List<AsyncOperation>();// List of scenes currently loading
+    [SerializeField] private float sceneLoadTimeout = 5f;// Timeout for scene loading
+    private float sceneLoadTimer = 0f;// Timer to track scene loading time
 
+    private void Start()
+    {
+        if (!isLevelLoaded)
+        {
+            LoadLevel(levelName);
+        }
+    }
+    /// <summary>
+    /// Loads a level by name asynchronously and tracks its loading state.
+    /// </summary>
+    /// <param name="name"></param>
     public void LoadLevel(string name)
     {
-        if (!string.IsNullOrEmpty(name))
+        SceneManager.sceneLoaded += OnSceneLoaded;
+        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(name, LoadSceneMode.Additive);
+        if (asyncLoad != null)
         {
-            SceneManager.LoadScene(name);
+            scenesLoading.Add(asyncLoad);
+            StartCoroutine(TrackSceneLoading(asyncLoad));
+            Debug.Log("Loading scene: " + name);
+        }
+        playerSpawnPoint = FindPlayerSpawn();
+        SetPlayerAtSpawnPoint(GameObject.FindWithTag("Player").transform);
+    }
+    /// <summary>
+    /// Tracks the loading progress of a scene and handles timeout.
+    /// </summary>
+    /// <param name="asyncLoad"></param>
+    /// <returns></returns>
+    private IEnumerator TrackSceneLoading(AsyncOperation asyncLoad)
+    {
+        sceneLoadTimer = 0f;
+        while (!asyncLoad.isDone)
+        {
+            sceneLoadTimer += Time.deltaTime;
+            if (sceneLoadTimer >= sceneLoadTimeout)
+            {
+                Debug.LogError("Scene loading timed out.");
+                yield break;
+            }
+            yield return null;
+        }
+        Debug.Log("Scene loaded successfully.");
+        isLevelLoaded = true;
+        scenesLoading.Remove(asyncLoad);
+    }
+    /// <summary>
+    /// Callback when a scene is loaded.
+    /// </summary>
+    /// <param name="scene"></param>
+    /// <param name="mode"></param>
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        Debug.Log("Scene Loaded: " + scene.name);
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+    /// <summary>
+    /// Finds and returns the player spawn point in the level.
+    /// </summary>
+    public Transform FindPlayerSpawn()
+    {
+        Debug.Log("Finding Player Spawn Point...");
+        GameObject spawnPointObj = GameObject.FindWithTag("PlayerSpawn");
+        if (spawnPointObj != null)
+        {
+            playerSpawnPoint = spawnPointObj.transform;
+            Debug.Log("Player Spawn Point found at: " + playerSpawnPoint.position);
         }
         else
         {
-            Debug.LogError($"Level name is not set: {name}");
+            Debug.LogWarning("Player Spawn Point not found. Using default position.");
+        }
+        return playerSpawnPoint;
+    }
+    /// <summary>
+    /// Set the player at the spawn point.
+    /// </summary>
+    public void SetPlayerAtSpawnPoint(Transform player)
+    {
+        if (playerSpawnPoint != null)
+        {
+            player.position = playerSpawnPoint.position;
+            player.rotation = playerSpawnPoint.rotation;
+        }
+        else
+        {
+            Debug.LogWarning("Player spawn point not found. Using default position.");
         }
     }
-
 }

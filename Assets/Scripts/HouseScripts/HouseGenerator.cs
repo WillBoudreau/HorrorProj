@@ -8,6 +8,14 @@ public class HouseGenerator : MonoBehaviour
     [SerializeField] private List<GameObject> housePrefabs;
     [SerializeField] private Transform houseSpawnPoint;
 
+    public void FindHouseSpawnPoint()
+    {
+        if (houseSpawnPoint == null)
+        {
+            houseSpawnPoint = GameObject.FindGameObjectWithTag("HouseSpawnPoint").transform;
+        }
+    }
+
     public void GenerateHouse()
     {
         if (housePrefabs.Count == 0 || houseSpawnPoint == null)

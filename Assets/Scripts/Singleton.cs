@@ -4,15 +4,36 @@ using UnityEngine;
 
 public class Singleton : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    private static Singleton instance;
+
+    public static Singleton Instance
     {
-        
+        get
+        {
+            if (instance == null)
+            {
+                instance = FindObjectOfType<Singleton>();
+                if (instance == null)
+                {
+                    GameObject singletonObject = new GameObject("Singleton");
+                    instance = singletonObject.AddComponent<Singleton>();
+                    DontDestroyOnLoad(singletonObject);
+                }
+            }
+            return instance;
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    protected virtual void Awake()
     {
-        
+        if (instance == null)
+        {
+            instance = this as Singleton;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
 }
