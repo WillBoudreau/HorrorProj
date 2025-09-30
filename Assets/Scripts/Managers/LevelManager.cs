@@ -6,7 +6,8 @@ using UnityEngine.SceneManagement;
 public class LevelManager : MonoBehaviour
 {
     [Header("Level Settings")]
-    [SerializeField] private string levelName;// Name of the level to load
+    [SerializeField] private GameManager gameManager;// Reference to the GameManager
+    public string levelName;// Name of the level to load
     [SerializeField] private int levelIndex;// Index of the level in build settings
     [SerializeField] private Transform playerSpawnPoint;// Player spawn point in the level
     public bool isLevelLoaded = false;// Level loading status
@@ -16,10 +17,7 @@ public class LevelManager : MonoBehaviour
 
     private void Start()
     {
-        if (!isLevelLoaded)
-        {
-            LoadLevel(levelName);
-        }
+        gameManager = FindObjectOfType<GameManager>();
     }
     /// <summary>
     /// Loads a level by name asynchronously and tracks its loading state.
@@ -28,15 +26,21 @@ public class LevelManager : MonoBehaviour
     public void LoadLevel(string name)
     {
         SceneManager.sceneLoaded += OnSceneLoaded;
-        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(name, LoadSceneMode.Additive);
-        if (asyncLoad != null)
+        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(name);
+        if (name == "MainMenuScene")
+        {
+            gameManager.SetPlayerBehaviourFalse();
+        }
+        else if (name == "GameplayScene")
+        {
+            gameManager.SetPlayerBehaviourTrue();
+        }
+        else if (asyncLoad != null)
         {
             scenesLoading.Add(asyncLoad);
             StartCoroutine(TrackSceneLoading(asyncLoad));
             Debug.Log("Loading scene: " + name);
         }
-        playerSpawnPoint = FindPlayerSpawn();
-        SetPlayerAtSpawnPoint(GameObject.FindWithTag("Player").transform);
     }
     /// <summary>
     /// Tracks the loading progress of a scene and handles timeout.
@@ -54,6 +58,7 @@ public class LevelManager : MonoBehaviour
                 Debug.LogError("Scene loading timed out.");
                 yield break;
             }
+
             yield return null;
         }
         Debug.Log("Scene loaded successfully.");
@@ -68,6 +73,7 @@ public class LevelManager : MonoBehaviour
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         Debug.Log("Scene Loaded: " + scene.name);
+        FindPlayerSpawn();
         SceneManager.sceneLoaded -= OnSceneLoaded;
     }
     /// <summary>
@@ -76,11 +82,13 @@ public class LevelManager : MonoBehaviour
     public Transform FindPlayerSpawn()
     {
         Debug.Log("Finding Player Spawn Point...");
-        GameObject spawnPointObj = GameObject.FindWithTag("PlayerSpawn");
-        if (spawnPointObj != null)
+        if (playerSpawnPoint == null)
         {
-            playerSpawnPoint = spawnPointObj.transform;
-            Debug.Log("Player Spawn Point found at: " + playerSpawnPoint.position);
+            Debug.Log("Player Spawn Point not set. Searching for tag 'PlayerSpawn'...");
+            GameObject spawnPoint = GameObject.FindWithTag("PlayerSpawn");
+            Debug.Log("Spawn Point found: " + (spawnPoint != null ? spawnPoint.name : "null"));
+            playerSpawnPoint = spawnPoint != null ? spawnPoint.transform : null;
+            SetPlayerAtSpawnPoint(gameManager.player.transform);
         }
         else
         {
