@@ -4,15 +4,19 @@ using UnityEngine;
 
 public class DoorBehaviour : MonoBehaviour
 {
-    // Start is called before the first frame update
+    [SerializeField] private LevelManager levelManager; 
     void Start()
     {
-        
+        if (levelManager == null)
+        {
+            levelManager = FindObjectOfType<LevelManager>();
+        }
     }
-
-    // Update is called once per frame
-    void Update()
+    void OnTriggerEnter(Collider other)
     {
-        
+        if (other.CompareTag("Player"))
+        {
+            levelManager.LoadLevel("HouseScene");
+        }
     }
 }
