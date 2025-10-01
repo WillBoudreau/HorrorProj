@@ -55,12 +55,12 @@ public class PlayerMovement : MonoBehaviour
         Vector2 lookInput = lookAction.ReadValue<Vector2>();
         float mouseSensitivity = 2f; // You can expose this as a [SerializeField] if needed
 
-        // Rotate the player horizontally (y-axis) based on mouse X movement
         float rotationY = lookInput.x * mouseSensitivity;
+        float rotationX = lookInput.y * mouseSensitivity;
         transform.Rotate(0f, rotationY, 0f, Space.World);
 
         // Rotate the rigidbody in the direction the player is facing
-        rb.MoveRotation(Quaternion.Euler(0f, transform.eulerAngles.y, 0f));
+        rb.MoveRotation(Quaternion.Euler(rotationX, transform.eulerAngles.y, 0f));
     }
 
 }
