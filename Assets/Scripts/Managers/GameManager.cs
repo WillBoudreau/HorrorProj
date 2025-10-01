@@ -6,6 +6,11 @@ public class GameManager : MonoBehaviour
 {
     [Header("Game References")]
     public GameObject player;
+    void Start()
+    {
+        player = GameObject.FindWithTag("Player");
+        SetPlayerBehaviourFalse();
+    }
 
     public void SetPlayerBehaviourFalse()
     {

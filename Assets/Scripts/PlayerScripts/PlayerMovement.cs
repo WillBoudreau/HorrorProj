@@ -32,29 +32,35 @@ public class PlayerMovement : MonoBehaviour
     {
         Move();
         Look();
-
-        // if (IsGrounded() && jumpAction.triggered)
-        // {
-        //     rb.velocity = new Vector2(rb.velocity.x, jumpForce);
-        // }
     }
 
     void Move()
     {
         Vector2 moveInput = moveAction.ReadValue<Vector2>();
         Vector3 move = new Vector3(moveInput.x, 0, moveInput.y) * moveSpeed;
-        Vector3 newVelocity = new Vector3(move.x, rb.velocity.y, move.z);
+        Vector3 moveDirection = new Vector3(move.x, 0, move.z);
+        moveDirection = transform.TransformDirection(moveDirection);
+        Vector3 newVelocity = new Vector3(moveDirection.x, rb.velocity.y, moveDirection.z);
         rb.velocity = newVelocity;
     }
     void Look()
     {
-        Vector2 lookInput = lookAction.ReadValue<Vector2>();
-        Vector3 lookDirection = new Vector3(lookInput.x, 0, lookInput.y);
-        if (lookDirection.sqrMagnitude > 0.01f)
+        // Lock the cursor to the center of the screen and hide it
+        if (Cursor.lockState != CursorLockMode.Locked)
         {
-            Quaternion targetRotation = Quaternion.LookRotation(lookDirection);
-            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime);
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
         }
+
+        Vector2 lookInput = lookAction.ReadValue<Vector2>();
+        float mouseSensitivity = 2f; // You can expose this as a [SerializeField] if needed
+
+        // Rotate the player horizontally (y-axis) based on mouse X movement
+        float rotationY = lookInput.x * mouseSensitivity;
+        transform.Rotate(0f, rotationY, 0f, Space.World);
+
+        // Rotate the rigidbody in the direction the player is facing
+        rb.MoveRotation(Quaternion.Euler(0f, transform.eulerAngles.y, 0f));
     }
 
 }
