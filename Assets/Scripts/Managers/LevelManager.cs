@@ -5,8 +5,10 @@ using UnityEngine.SceneManagement;
 
 public class LevelManager : MonoBehaviour
 {
-    [Header("Level Settings")]
+    [Header("Level References")]
     [SerializeField] private GameManager gameManager;// Reference to the GameManager
+    [SerializeField] private HouseGenerator houseGenerator;// Reference to the HouseGenerator
+    [Header("Level Settings")]
     public string levelName;// Name of the level to load
     [SerializeField] private int levelIndex;// Index of the level in build settings
     [SerializeField] private Transform playerSpawnPoint;// Player spawn point in the level
@@ -18,6 +20,7 @@ public class LevelManager : MonoBehaviour
     private void Start()
     {
         gameManager = FindObjectOfType<GameManager>();
+        houseGenerator = FindObjectOfType<HouseGenerator>();
     }
     /// <summary>
     /// Loads a level by name asynchronously and tracks its loading state.
@@ -73,6 +76,13 @@ public class LevelManager : MonoBehaviour
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         Debug.Log("Scene Loaded: " + scene.name);
+        if(scene.name == "HouseScene")
+        {
+            Debug.Log("Loading House Scene...");
+            houseGenerator.FindHouseSpawnPoint();
+            Debug.Log("Generating House...");
+            houseGenerator.GenerateHouse();
+        }
         FindPlayerSpawn();
         SceneManager.sceneLoaded -= OnSceneLoaded;
     }

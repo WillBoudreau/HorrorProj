@@ -167,6 +167,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameManager: {fileID: 812301598}
+  houseGenerator: {fileID: 0}
   levelName: 
   levelIndex: 0
   playerSpawnPoint: {fileID: 0}
@@ -1746,7 +1747,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0875a945fe887f4ab62fcc884ca893a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  housePrefabs: []
+  housePrefabs:
+  - {fileID: 4189803471470758855, guid: 6e9a135df2cf6904387373575fb8dbc6, type: 3}
   houseSpawnPoint: {fileID: 0}
 --- !u!1 &2061663054
 GameObject:
