@@ -15,9 +15,13 @@ public class GameManager : MonoBehaviour
     public void SetPlayerBehaviourFalse()
     {
         player.GetComponent<PlayerMovement>().enabled = false;
+        player.GetComponentInChildren<PlayerLook>().enabled = false;
+        player.GetComponent<Rigidbody>().isKinematic = true;
     }
     public void SetPlayerBehaviourTrue()
     {
         player.GetComponent<PlayerMovement>().enabled = true;
+        player.GetComponentInChildren<PlayerLook>().enabled = true;
+        player.GetComponent<Rigidbody>().isKinematic = false;
     }
 }

@@ -14,10 +14,11 @@ public class PlayerMovement : MonoBehaviour
     [Header("Movement Components")]
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private Transform groundCheck;
-    private Rigidbody rb;
+    [SerializeField] private Camera playerCamera;
+    public Rigidbody rb;
     [SerializeField] private PlayerInput playerInput;
     private InputAction moveAction;
-    private InputAction lookAction;
+
     private InputAction jumpAction;
 
     void Awake()
@@ -25,42 +26,32 @@ public class PlayerMovement : MonoBehaviour
         rb = GetComponent<Rigidbody>();
 
         moveAction = playerInput.actions["Move"];
-        lookAction = playerInput.actions["Look"];
         // jumpAction = playerInput.actions["Jump"];
     }
     void Update()
     {
         Move();
-        Look();
     }
 
     void Move()
     {
         Vector2 moveInput = moveAction.ReadValue<Vector2>();
-        Vector3 move = new Vector3(moveInput.x, 0, moveInput.y) * moveSpeed;
-        Vector3 moveDirection = new Vector3(move.x, 0, move.z);
-        moveDirection = transform.TransformDirection(moveDirection);
-        Vector3 newVelocity = new Vector3(moveDirection.x, rb.velocity.y, moveDirection.z);
-        rb.velocity = newVelocity;
+
+        // Get camera-relative directions
+        Vector3 forward = playerCamera.transform.forward;
+        Vector3 right = playerCamera.transform.right;
+
+        // Flatten so movement doesn’t tilt with camera up/down
+        forward.y = 0f;
+        right.y = 0f;
+        forward.Normalize();
+        right.Normalize();
+
+        // Combine with input
+        Vector3 moveDirection = (forward * moveInput.y + right * moveInput.x).normalized;
+
+        // Apply velocity
+        Vector3 moveVelocity = moveDirection * moveSpeed;
+        rb.velocity = new Vector3(moveVelocity.x, rb.velocity.y, moveVelocity.z);
     }
-    void Look()
-    {
-        // Lock the cursor to the center of the screen and hide it
-        if (Cursor.lockState != CursorLockMode.Locked)
-        {
-            Cursor.lockState = CursorLockMode.Locked;
-            Cursor.visible = false;
-        }
-
-        Vector2 lookInput = lookAction.ReadValue<Vector2>();
-        float mouseSensitivity = 2f; // You can expose this as a [SerializeField] if needed
-
-        float rotationY = lookInput.x * mouseSensitivity;
-        float rotationX = lookInput.y * mouseSensitivity;
-        transform.Rotate(0f, rotationY, 0f, Space.World);
-
-        // Rotate the rigidbody in the direction the player is facing
-        rb.MoveRotation(Quaternion.Euler(rotationX, transform.eulerAngles.y, 0f));
-    }
-
 }
