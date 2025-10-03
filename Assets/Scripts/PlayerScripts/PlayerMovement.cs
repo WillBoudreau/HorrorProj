@@ -52,6 +52,6 @@ public class PlayerMovement : MonoBehaviour
 
         // Apply velocity
         Vector3 moveVelocity = moveDirection * moveSpeed;
-        rb.velocity = new Vector3(moveVelocity.x, rb.velocity.y, moveVelocity.z);
+        rb.linearVelocity = new Vector3(moveVelocity.x, rb.linearVelocity.y, moveVelocity.z);
     }
 }
