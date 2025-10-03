@@ -107,6 +107,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerInput: {fileID: 1125092395826339647}
   rb: {fileID: 972873903521355207}
+  playerMovement: {fileID: 0}
+  mouseSensitivity: 2
 --- !u!1 &8847810119280146636
 GameObject:
   m_ObjectHideFlags: 0
@@ -119,6 +121,8 @@ GameObject:
   - component: {fileID: 1125092395826339647}
   - component: {fileID: 972873903521355207}
   - component: {fileID: 5645164122664889994}
+  - component: {fileID: 823149797655411966}
+  - component: {fileID: 4595960354829377388}
   - component: {fileID: 42339814630615867}
   m_Layer: 0
   m_Name: Player
@@ -180,10 +184,10 @@ Rigidbody:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8847810119280146636}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -220,7 +224,51 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 0
   groundCheck: {fileID: 0}
+  playerCamera: {fileID: 0}
+  rb: {fileID: 0}
   playerInput: {fileID: 1125092395826339647}
+--- !u!114 &823149797655411966
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8847810119280146636}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4c085ce7e4550944be5a21003f87288, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerInteractions
+  interactionRange: 3
+  interactableLayer:
+    serializedVersion: 2
+    m_Bits: 64
+  playerCamera: {fileID: 2030351175645030610}
+  currentInteractable: {fileID: 0}
+  interactAction:
+    m_Name: Interact
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 96afe599-bd88-491f-a179-101627126a92
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
+  playerInventory: {fileID: 0}
+--- !u!114 &4595960354829377388
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8847810119280146636}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 701968223670cf948ab4a76198ae7436, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerInventory
+  maxItems: 10
+  inventoryItems: []
 --- !u!136 &42339814630615867
 CapsuleCollider:
   m_ObjectHideFlags: 0

@@ -35,10 +35,10 @@ public class PlayerLook : MonoBehaviour
         Vector2 lookInput = lookAction.ReadValue<Vector2>();
 
         float rotationY = lookInput.x * mouseSensitivity * Time.deltaTime;
-        // float rotationX = lookInput.y * mouseSensitivity * Time.deltaTime;
+        float rotationX = -lookInput.y * mouseSensitivity * Time.deltaTime;
 
         // Only rotate using Rigidbody to avoid double rotation
-        Quaternion deltaRotation = Quaternion.Euler(0f, rotationY, 0f);
+        Quaternion deltaRotation = Quaternion.Euler(rotationX, rotationY, 0f);
         rb.MoveRotation(rb.rotation * deltaRotation);
     }
 }

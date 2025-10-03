@@ -1,4 +1,5 @@
 {
+    "version": 1,
     "name": "HorrorProj",
     "maps": [
         {
@@ -27,6 +28,15 @@
                     "name": "Fire",
                     "type": "Button",
                     "id": "ff00390c-c492-4e1f-a644-8ca4c4493bce",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "OnInteract",
+                    "type": "Button",
+                    "id": "dbb38988-ee6d-4a88-ad3b-0fa25717be39",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -251,6 +261,28 @@
                     "processors": "",
                     "groups": "XR",
                     "action": "Fire",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "df6b9c71-8651-4a6e-9183-2403be185192",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "OnInteract",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "657547e1-08f9-4a8d-83a3-73c8359bd96d",
+                    "path": "<XInputController>/buttonWest",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "OnInteract",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
