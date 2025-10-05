@@ -10,76 +10,48 @@ public class PlayerInteractions : MonoBehaviour
     [SerializeField] private InteractableOBJ currentInteractable;
     [SerializeField] private PlayerInput playerInput;
     public PlayerInventory playerInventory;
+    private InputAction interactAction;
     void Awake()
     {
         playerInput = GetComponent<PlayerInput>();
         playerInventory = GetComponent<PlayerInventory>();
+        interactAction = playerInput.actions["OnInteract"];
     }
     void Update()
     {
-        Debug.DrawRay(playerCamera.transform.position, playerCamera.transform.forward * interactionRange, Color.red);
+        Interact();
     }
     /// <summary>
-    /// Handles player interaction with objects, called from Input System
+    /// Checks for interactable objects in front of the player.
     /// </summary>
-    /// <param name="context"></param>
-    public void OnInteract(InputAction.CallbackContext context)
+    void InteractWithObj()
     {
-        if (context.performed)
-        {
-            Ray ray = playerCamera.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2));
-            RaycastHit hit;
-
-            if (Physics.Raycast(ray, out hit, interactionRange, interactableLayer))
-            {
-                InteractableOBJ interactable = hit.collider.GetComponent<InteractableOBJ>();
-                if (interactable != null)
-                {
-                    currentInteractable = interactable;
-                    currentInteractable.Interact();
-                }
-            }
-            else
-            {
-                if (currentInteractable != null)
-                {
-                    currentInteractable.HideInteractionPrompt();
-                    currentInteractable = null;
-                }
-            }
-        }
-    }
-    /// <summary>
-    /// Handles showing and hiding interaction prompts based on player's view
-    /// </summary>
-    public void Look(InputAction.CallbackContext context)
-    {
-        Ray ray = playerCamera.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2));
+        Ray ray = new Ray(playerCamera.transform.position, playerCamera.transform.forward);
         RaycastHit hit;
-
         if (Physics.Raycast(ray, out hit, interactionRange, interactableLayer))
         {
-            InteractableOBJ interactable = hit.collider.GetComponent<InteractableOBJ>();
-            if (interactable != null)
-            {
-                if (currentInteractable != interactable)
-                {
-                    if (currentInteractable != null)
-                    {
-                        currentInteractable.HideInteractionPrompt();
-                    }
-                    currentInteractable = interactable;
-                    currentInteractable.ShowInteractionPrompt();
-                }
-            }
+            currentInteractable = hit.collider.GetComponent<InteractableOBJ>();
+            currentInteractable.Interact();
+            Debug.Log("Found interactable: " + currentInteractable.name);
         }
         else
         {
-            if (currentInteractable != null)
-            {
-                currentInteractable.HideInteractionPrompt();
-                currentInteractable = null;
-            }
+            currentInteractable = null;
+            Debug.Log("No interactable found");
+        }
+    }
+    /// <summary>
+    /// Handles player input for interactions.
+    /// </summary>
+    public void Interact()
+    {
+        if(currentInteractable == null && interactAction.triggered)
+        {
+            InteractWithObj();
+        }
+        else if(currentInteractable != null && interactAction.triggered)
+        {
+            InteractWithObj();
         }
     }
 }
