@@ -165,6 +165,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameManager: {fileID: 812301598}
   houseGenerator: {fileID: 0}
+  currentPlayerSpawnPoint: {fileID: 0}
+  lastPlayerSpawnPoint: {fileID: 0}
   levelName: 
   levelIndex: 0
   playerSpawnPoint: {fileID: 0}
@@ -1299,7 +1301,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 42339814630615867, guid: 850ddabfd9de05b47b6273827af8a2ac, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 367114746075464618, guid: 850ddabfd9de05b47b6273827af8a2ac, type: 3}
       propertyPath: rb
@@ -1353,6 +1355,10 @@ PrefabInstance:
       propertyPath: playerMovement
       value: 
       objectReference: {fileID: 1693662672}
+    - target: {fileID: 5857245063846378829, guid: 850ddabfd9de05b47b6273827af8a2ac, type: 3}
+      propertyPath: cameraTransform
+      value: 
+      objectReference: {fileID: 1910317386}
     - target: {fileID: 5857245063846378829, guid: 850ddabfd9de05b47b6273827af8a2ac, type: 3}
       propertyPath: mouseSensitivity
       value: 20
@@ -1664,6 +1670,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1860521043}
   m_CullTransparentMesh: 1
+--- !u!4 &1910317386 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6233454053813530699, guid: 850ddabfd9de05b47b6273827af8a2ac, type: 3}
+  m_PrefabInstance: {fileID: 1693662659}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1967427352
 GameObject:
   m_ObjectHideFlags: 0

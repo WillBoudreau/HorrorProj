@@ -8,6 +8,8 @@ public class LevelManager : MonoBehaviour
     [Header("Level References")]
     [SerializeField] private GameManager gameManager;// Reference to the GameManager
     [SerializeField] private HouseGenerator houseGenerator;// Reference to the HouseGenerator
+    public Transform currentPlayerSpawnPoint;// Current player spawn point
+    public Transform lastPlayerSpawnPoint;// Last player spawn point
     [Header("Level Settings")]
     public string levelName;// Name of the level to load
     [SerializeField] private int levelIndex;// Index of the level in build settings
@@ -91,18 +93,28 @@ public class LevelManager : MonoBehaviour
     /// </summary>
     public Transform FindPlayerSpawn()
     {
-        Debug.Log("Finding Player Spawn Point...");
-        if (playerSpawnPoint == null)
+        if (lastPlayerSpawnPoint == null)
         {
-            Debug.Log("Player Spawn Point not set. Searching for tag 'PlayerSpawn'...");
-            GameObject spawnPoint = GameObject.FindWithTag("PlayerSpawn");
-            Debug.Log("Spawn Point found: " + (spawnPoint != null ? spawnPoint.name : "null"));
-            playerSpawnPoint = spawnPoint != null ? spawnPoint.transform : null;
-            SetPlayerAtSpawnPoint(gameManager.player.transform);
+            if (playerSpawnPoint == null)
+            {
+                GameObject spawnPoint = GameObject.FindWithTag("PlayerSpawn");
+                playerSpawnPoint = spawnPoint.transform;
+                SetPlayerAtSpawnPoint(gameManager.player.transform);
+            }
+            else if (playerSpawnPoint != null)
+            {
+                SetPlayerAtSpawnPoint(gameManager.player.transform);
+            }
+            else
+            {
+                Debug.LogWarning("Player Spawn Point not found. Using default position.");
+            }
         }
-        else
+        else if (lastPlayerSpawnPoint != null)
         {
-            Debug.LogWarning("Player Spawn Point not found. Using default position.");
+            playerSpawnPoint = lastPlayerSpawnPoint;
+            SetPlayerAtSpawnPoint(gameManager.player.transform);
+            lastPlayerSpawnPoint = null;
         }
         return playerSpawnPoint;
     }

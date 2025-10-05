@@ -21,6 +21,7 @@ public class DoorBehaviour : MonoBehaviour
         {
             if (doorType == DoorType.Enter)
             {
+                levelManager.lastPlayerSpawnPoint = this.gameObject.transform; 
                 levelManager.LoadLevel("HouseScene");
             }
             else if (doorType == DoorType.Exit)
