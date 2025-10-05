@@ -123,6 +123,7 @@ GameObject:
   - component: {fileID: 5645164122664889994}
   - component: {fileID: 823149797655411966}
   - component: {fileID: 4595960354829377388}
+  - component: {fileID: 8874935823959499369}
   - component: {fileID: 42339814630615867}
   m_Layer: 0
   m_Name: Player
@@ -245,15 +246,7 @@ MonoBehaviour:
     m_Bits: 64
   playerCamera: {fileID: 2030351175645030610}
   currentInteractable: {fileID: 0}
-  interactAction:
-    m_Name: Interact
-    m_Type: 0
-    m_ExpectedControlType: 
-    m_Id: 96afe599-bd88-491f-a179-101627126a92
-    m_Processors: 
-    m_Interactions: 
-    m_SingletonActionBindings: []
-    m_Flags: 0
+  playerInput: {fileID: 0}
   playerInventory: {fileID: 0}
 --- !u!114 &4595960354829377388
 MonoBehaviour:
@@ -269,6 +262,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerInventory
   maxItems: 10
   inventoryItems: []
+--- !u!114 &8874935823959499369
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8847810119280146636}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ac35c9a238269e4b9f0f47343fe8399, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
 --- !u!136 &42339814630615867
 CapsuleCollider:
   m_ObjectHideFlags: 0

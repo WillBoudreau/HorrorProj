@@ -1321,6 +1321,10 @@ PrefabInstance:
       propertyPath: m_Constraints
       value: 80
       objectReference: {fileID: 0}
+    - target: {fileID: 4595960354829377388, guid: 850ddabfd9de05b47b6273827af8a2ac, type: 3}
+      propertyPath: foodItemPrefab
+      value: 
+      objectReference: {fileID: 536126662309428893, guid: 22efec167df205a40aebff34a08fc36c, type: 3}
     - target: {fileID: 4671483167530749746, guid: 850ddabfd9de05b47b6273827af8a2ac, type: 3}
       propertyPath: m_Size.y
       value: 2.3529866
