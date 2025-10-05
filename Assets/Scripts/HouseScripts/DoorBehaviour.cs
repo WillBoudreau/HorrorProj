@@ -5,6 +5,9 @@ using UnityEngine;
 public class DoorBehaviour : MonoBehaviour
 {
     [SerializeField] private LevelManager levelManager; 
+    public enum DoorType {Enter, Exit}
+    [SerializeField] private DoorType doorType;
+
     void Start()
     {
         if (levelManager == null)
@@ -16,7 +19,14 @@ public class DoorBehaviour : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            levelManager.LoadLevel("HouseScene");
+            if (doorType == DoorType.Enter)
+            {
+                levelManager.LoadLevel("HouseScene");
+            }
+            else if (doorType == DoorType.Exit)
+            {
+                levelManager.LoadLevel("GameplayScene");
+            }
         }
     }
 }

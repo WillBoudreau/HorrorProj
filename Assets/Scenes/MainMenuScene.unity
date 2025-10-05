@@ -1886,6 +1886,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   housePrefabs:
   - {fileID: 4189803471470758855, guid: 6e9a135df2cf6904387373575fb8dbc6, type: 3}
+  - {fileID: 8951445201531068348, guid: 16a2f7fbf7947934a81ab4a4e63c7fba, type: 3}
   houseSpawnPoint: {fileID: 0}
 --- !u!1 &2061663054
 GameObject:
