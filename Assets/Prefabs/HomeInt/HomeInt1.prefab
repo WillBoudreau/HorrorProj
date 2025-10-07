@@ -1624,6 +1624,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DoorBehaviour
   levelManager: {fileID: 0}
+  doorType: 1
 --- !u!1 &5178066830925261188
 GameObject:
   m_ObjectHideFlags: 0

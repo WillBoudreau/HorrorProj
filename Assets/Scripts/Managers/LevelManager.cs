@@ -8,7 +8,6 @@ public class LevelManager : MonoBehaviour
     [Header("Level References")]
     [SerializeField] private GameManager gameManager;// Reference to the GameManager
     [SerializeField] private HouseGenerator houseGenerator;// Reference to the HouseGenerator
-    public Transform currentPlayerSpawnPoint;// Current player spawn point
     public Transform lastPlayerSpawnPoint;// Last player spawn point
     [Header("Level Settings")]
     public string levelName;// Name of the level to load
@@ -78,12 +77,14 @@ public class LevelManager : MonoBehaviour
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         Debug.Log("Scene Loaded: " + scene.name);
-        if(scene.name == "HouseScene")
+        if (scene.name == "HouseScene")
         {
+            mode = LoadSceneMode.Additive;
             Debug.Log("Loading House Scene...");
             houseGenerator.FindHouseSpawnPoint();
             Debug.Log("Generating House...");
             houseGenerator.GenerateHouse();
+            Debug.Log("LoadSceneMode: " + mode);    
         }
         FindPlayerSpawn();
         SceneManager.sceneLoaded -= OnSceneLoaded;

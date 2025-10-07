@@ -8,8 +8,8 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject mainMenu;
     [SerializeField] private GameObject pauseMenu;
     [SerializeField] private GameObject gameOverScreen;
-    [SerializeField] private GameObject hud;
-    [SerializeField] private GameObject inventoryUI;
+    public GameObject hud;
+    public GameObject inventoryUI;
     [SerializeField] private GameObject settingsMenu;
     [SerializeField] private GameObject dialogueBox;
     [SerializeField] private GameObject questLog;

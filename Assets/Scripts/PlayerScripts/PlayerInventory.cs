@@ -7,6 +7,11 @@ public class PlayerInventory : MonoBehaviour
     public int maxItems = 10;
     private int currentItemCount = 0;
     public List<GameObject> inventoryItems = new List<GameObject>();
+    [SerializeField] private UIManager uiManager;
+    void Start()
+    {
+        uiManager = FindObjectOfType<UIManager>();
+    }
     public void AddItem(GameObject item)
     {
         if (currentItemCount < maxItems)
@@ -35,6 +40,21 @@ public class PlayerInventory : MonoBehaviour
         else
         {
             Debug.Log("Item not found in inventory!");
+        }
+    }
+    /// <summary>
+    /// Toggles the inventory UI.
+    /// </summary>
+    public void ToggleInventory()
+    {
+        if (uiManager != null)
+        {
+            if(uiManager.inventoryUI.activeSelf)
+            {
+                uiManager.SetUI(uiManager.hud);
+                return;
+            }
+            uiManager.SetUI(uiManager.inventoryUI);
         }
     }
 }

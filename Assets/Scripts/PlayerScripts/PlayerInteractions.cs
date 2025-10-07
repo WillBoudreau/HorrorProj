@@ -37,8 +37,7 @@ public class PlayerInteractions : MonoBehaviour
         }
         else
         {
-            currentInteractable = null;
-            Debug.Log("No interactable found");
+            OpenInventory();
         }
     }
     /// <summary>
@@ -55,6 +54,16 @@ public class PlayerInteractions : MonoBehaviour
             InteractWithObj();
         }
     }
+    ///<summary>
+    /// Open the Inventory UI of the player.
+    /// </summary>
+    public void OpenInventory()
+    {
+        if (playerInventory != null)
+        {
+            playerInventory.ToggleInventory();
+        }
+    } 
     /// <summary>
     /// Picks up the specified item and adds it to the player's inventory.
     /// </summary>
