@@ -86,6 +86,7 @@ public class LevelManager : MonoBehaviour
             houseGenerator.GenerateHouse();
             Debug.Log("LoadSceneMode: " + mode);    
         }
+        levelName = scene.name;
         FindPlayerSpawn();
         SceneManager.sceneLoaded -= OnSceneLoaded;
     }

@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 9023222786547297964}
   m_Layer: 0
   m_Name: Home1
-  m_TagString: Untagged
+  m_TagString: House
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -725,3 +725,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   levelManager: {fileID: 0}
+  doorType: 0

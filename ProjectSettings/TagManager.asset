@@ -6,6 +6,9 @@ TagManager:
   tags:
   - HouseSpawnPoint
   - PlayerSpawn
+  - House
+  - Obstacle
+  - Food
   layers:
   - Default
   - TransparentFX
