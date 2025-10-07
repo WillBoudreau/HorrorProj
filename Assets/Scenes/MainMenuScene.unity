@@ -782,7 +782,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 389321104}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 389321106}
+        m_TargetAssemblyTypeName: InventorySlot, Assembly-CSharp
+        m_MethodName: OnInteractionButtonClicked
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &389321104
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -834,6 +846,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   playerInventory: {fileID: 0}
+  itemIcon: {fileID: 389321104}
+  interactionDropdown: {fileID: 489866293}
+  interactionOptions: []
 --- !u!1 &414716286
 GameObject:
   m_ObjectHideFlags: 0
@@ -1045,6 +1060,7 @@ RectTransform:
   - {fileID: 1292334494}
   - {fileID: 474748831}
   - {fileID: 1491300877}
+  - {fileID: 2061663055}
   m_Father: {fileID: 389321102}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -1376,6 +1392,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 229015563}
+  uiManager: {fileID: 0}
 --- !u!4 &812301599
 Transform:
   m_ObjectHideFlags: 0
@@ -2428,6 +2445,14 @@ PrefabInstance:
       propertyPath: foodItemPrefab
       value: 
       objectReference: {fileID: 536126662309428893, guid: 22efec167df205a40aebff34a08fc36c, type: 3}
+    - target: {fileID: 4595960354829377388, guid: 850ddabfd9de05b47b6273827af8a2ac, type: 3}
+      propertyPath: inventorySlots.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4595960354829377388, guid: 850ddabfd9de05b47b6273827af8a2ac, type: 3}
+      propertyPath: 'inventorySlots.Array.data[0]'
+      value: 
+      objectReference: {fileID: 389321106}
     - target: {fileID: 4671483167530749746, guid: 850ddabfd9de05b47b6273827af8a2ac, type: 3}
       propertyPath: m_Size.y
       value: 2.3529866
@@ -2628,7 +2653,6 @@ Transform:
   - {fileID: 1490004845}
   - {fileID: 713484407}
   - {fileID: 1058704572}
-  - {fileID: 2061663055}
   - {fileID: 1147737328}
   - {fileID: 1117875603}
   - {fileID: 2083799633}
@@ -3171,12 +3195,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2061663054}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 123.74379, y: 18.996853, z: 57.67796}
+  m_LocalScale: {x: 0.66666675, y: 0.50000006, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1825886539}
+  m_Father: {fileID: 489866292}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2083799632
 GameObject:

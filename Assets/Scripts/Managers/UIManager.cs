@@ -5,16 +5,16 @@ using UnityEngine;
 public class UIManager : MonoBehaviour
 {
     [Header("UI Elements")]
-    [SerializeField] private GameObject mainMenu;
-    [SerializeField] private GameObject pauseMenu;
-    [SerializeField] private GameObject gameOverScreen;
+    public GameObject mainMenu;
+    public GameObject pauseMenu;
+    public GameObject gameOverScreen;
     public GameObject hud;
     public GameObject inventoryUI;
-    [SerializeField] private GameObject settingsMenu;
-    [SerializeField] private GameObject dialogueBox;
-    [SerializeField] private GameObject questLog;
-    [SerializeField] private GameObject mapUI;
-    [SerializeField] private GameObject loadingScreen;
+    public GameObject settingsMenu;
+    public GameObject dialogueBox;
+    public GameObject questLog;
+    public GameObject mapUI;
+    public GameObject loadingScreen;
 
     public void SetFalseAllUI()
     {

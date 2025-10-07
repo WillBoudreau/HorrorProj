@@ -7,6 +7,7 @@ public class PlayerLook : MonoBehaviour
 {
     [Header("Look Settings")]
     [SerializeField] private PlayerInput playerInput;
+    [SerializeField] private UIManager uiManager;
     private InputAction lookAction;
     [SerializeField] private Rigidbody rb;
     [SerializeField] private PlayerMovement playerMovement;
@@ -21,6 +22,7 @@ public class PlayerLook : MonoBehaviour
         playerMovement = GetComponentInParent<PlayerMovement>();
         rb = playerMovement.rb;
         lookAction = playerInput.actions["Look"];
+        uiManager = FindObjectOfType<UIManager>();
  
         if (cameraTransform == null)
         {
@@ -29,6 +31,15 @@ public class PlayerLook : MonoBehaviour
     }
     void Update()
     {
+        if(uiManager.mainMenu.activeSelf || uiManager.pauseMenu.activeSelf || uiManager.gameOverScreen.activeSelf || uiManager.settingsMenu.activeSelf || uiManager.inventoryUI.activeSelf)
+        {
+            if (Cursor.lockState != CursorLockMode.None)
+            {
+                Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = true;
+            }
+            return;
+        }
         Look();
     }
 

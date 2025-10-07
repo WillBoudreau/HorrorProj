@@ -6,10 +6,13 @@ public class GameManager : MonoBehaviour
 {
     [Header("Game References")]
     public GameObject player;
+    public UIManager uiManager;
     void Start()
     {
         player = GameObject.FindWithTag("Player");
+        uiManager = FindObjectOfType<UIManager>();
         SetPlayerBehaviourFalse();
+        uiManager.SetUI(uiManager.mainMenu);
     }
 
     public void SetPlayerBehaviourFalse()

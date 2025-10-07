@@ -7,6 +7,7 @@ public class PlayerInventory : MonoBehaviour
     public int maxItems = 10;
     private int currentItemCount = 0;
     public List<GameObject> inventoryItems = new List<GameObject>();
+    [SerializeField] private List<InventorySlot> inventorySlots = new List<InventorySlot>();
     [SerializeField] private UIManager uiManager;
     void Start()
     {
@@ -18,6 +19,7 @@ public class PlayerInventory : MonoBehaviour
         {
             currentItemCount++;
             inventoryItems.Add(item);
+            inventorySlots[currentItemCount - 1].UpdateSlot(item);
             Debug.Log("Item added. Current item count: " + currentItemCount);
         }
         else
