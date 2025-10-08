@@ -63,7 +63,7 @@ public class ItemGenerator : MonoBehaviour
         // Generate a random position within the spawn zone
         Vector3 randomPosition = spawnZoneCenter + new Vector3(
             Random.Range(-spawnZoneSize.x, spawnZoneSize.x),
-            Random.Range(-spawnZoneSize.y, spawnZoneSize.y),
+            0,
             Random.Range(-spawnZoneSize.z, spawnZoneSize.z)
         );
         return randomPosition;

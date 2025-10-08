@@ -692,11 +692,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   interactionType: 1
-  interactionPrompt: Interact
+  interactionPrompt: E
   pickupType: 3
   isCollected: 0
   interactionPromptUI: {fileID: 8948501952321070842}
   interactionPromptText: {fileID: 46189180457817961}
+  highlightEffect: {fileID: 0}
+  highlightColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+  highlightMaterial: {fileID: 0}
 --- !u!135 &1695536368993821914
 SphereCollider:
   m_ObjectHideFlags: 0

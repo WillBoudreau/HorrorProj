@@ -9,19 +9,24 @@ public class InteractableOBJ : MonoBehaviour
     public enum InteractionType { None, Pickup, Examine, Activate }
     [Header("Interaction Settings")]
     public InteractionType interactionType = InteractionType.None;
-    public string interactionPrompt = "Interact";
+    public string interactionPrompt = "E";
     public enum PickupType { None, Key, Health, Food }
     public PickupType pickupType = PickupType.None;
     public bool isCollected = false;
     [Header("UI Elements")]
     public GameObject interactionPromptUI;
     public TextMeshProUGUI interactionPromptText;
+    [Header("Highlight Settings")]
+    public GameObject highlightEffect;
+    public Color highlightColor = Color.yellow;
+    public Material highlightMaterial;
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
             ShowInteractionPrompt();
+            AddHighlight();
         }
     }
     private void OnTriggerExit(Collider other)
@@ -29,11 +34,12 @@ public class InteractableOBJ : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             HideInteractionPrompt();
+            StartCoroutine(RevertHighlight(GetComponent<Renderer>(), GetComponent<Renderer>().material, 0.1f));
         }
     }
     public void ShowInteractionPrompt()
     {
-        interactionPromptText.text = $"Press {interactionPrompt} to interact";
+        interactionPromptText.text = $"{interactionPrompt}";
         interactionPromptUI.SetActive(true);
     }
     public void HideInteractionPrompt()
@@ -87,7 +93,26 @@ public class InteractableOBJ : MonoBehaviour
     {
         Debug.Log("Activating item...");
     }
-
-
+    /// <summary>
+    /// Add a highlight effect to the object when the player looks at it.
+    /// </summary>
+    public void AddHighlight()
+    {
+        Renderer renderer = GetComponent<Renderer>();
+        if (renderer != null)
+        {
+            highlightEffect.SetActive(true);
+            highlightMaterial.color = highlightColor;
+        }
+    }
+    IEnumerator RevertHighlight(Renderer renderer, Material originalMaterial, float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        if (renderer != null)
+        {
+            renderer.material = originalMaterial;
+            highlightEffect.SetActive(false);
+        }
+    }
 
 }

@@ -4337,6 +4337,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -8291040304244669291, guid: c8a818c7c7bc1454a9ab2560abc48bdd, type: 3}
+      propertyPath: pickupType
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: -8291040304244669291, guid: c8a818c7c7bc1454a9ab2560abc48bdd, type: 3}
+      propertyPath: interactionType
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 830139090875836892, guid: c8a818c7c7bc1454a9ab2560abc48bdd, type: 3}
       propertyPath: m_LocalPosition.x
       value: -4.592
@@ -4383,7 +4391,11 @@ PrefabInstance:
       objectReference: {fileID: 1925719881}
     - target: {fileID: 5073996936801249435, guid: c8a818c7c7bc1454a9ab2560abc48bdd, type: 3}
       propertyPath: m_Name
-      value: Water
+      value: MedKit
+      objectReference: {fileID: 0}
+    - target: {fileID: 5073996936801249435, guid: c8a818c7c7bc1454a9ab2560abc48bdd, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 5513786274830315484, guid: c8a818c7c7bc1454a9ab2560abc48bdd, type: 3}
       propertyPath: m_Mesh
@@ -4391,7 +4403,7 @@ PrefabInstance:
       objectReference: {fileID: 1925719881}
     - target: {fileID: 5513786274830315484, guid: c8a818c7c7bc1454a9ab2560abc48bdd, type: 3}
       propertyPath: m_VersionIndex
-      value: 2123
+      value: 2222
       objectReference: {fileID: 0}
     - target: {fileID: 6887826930881064353, guid: c8a818c7c7bc1454a9ab2560abc48bdd, type: 3}
       propertyPath: m_Mesh
@@ -4800,7 +4812,7 @@ PrefabInstance:
       objectReference: {fileID: 534678311}
     - target: {fileID: 5989444128747145479, guid: 22efec167df205a40aebff34a08fc36c, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -5.752208
+      value: -5.82
       objectReference: {fileID: 0}
     - target: {fileID: 5989444128747145479, guid: 22efec167df205a40aebff34a08fc36c, type: 3}
       propertyPath: m_LocalPosition.y

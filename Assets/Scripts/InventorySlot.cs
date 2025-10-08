@@ -66,6 +66,21 @@ public class InventorySlot : MonoBehaviour
                 SetItemIcon(Color.orange);
                 PopulateInteractionOptions(item);
             }
+            else if (interactable.pickupType == InteractableOBJ.PickupType.Health)
+            {
+                SetItemIcon(Color.red);
+                PopulateInteractionOptions(item);
+            }
+            else if (interactable.pickupType == InteractableOBJ.PickupType.Key)
+            {
+                SetItemIcon(Color.yellow);
+                PopulateInteractionOptions(item);
+            }
+            else
+            {
+                SetItemIcon(Color.white);
+                PopulateInteractionOptions(item);
+            }
         }
         else
         {

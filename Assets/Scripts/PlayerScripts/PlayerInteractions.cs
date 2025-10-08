@@ -72,34 +72,6 @@ public class PlayerInteractions : MonoBehaviour
         if (currentInteractable != null && !currentInteractable.isCollected)
         {
             playerInventory.AddItem(currentInteractable.gameObject);
-
-            // switch (currentInteractable.pickupType)
-            // {
-            //     case InteractableOBJ.PickupType.Key:
-            //         playerInventory.AddKey(currentInteractable.gameObject);
-            //         Debug.Log("Picked up a key.");
-            //         break;
-            //     case InteractableOBJ.PickupType.Health:
-            //         PlayerStats playerStats = GetComponent<PlayerStats>();
-            //         if (playerStats != null)
-            //         {
-            //             playerStats.TakeDamage(-20); // Heal 20 health
-            //             Debug.Log("Picked up health.");
-            //         }
-            //         break;
-            //     case InteractableOBJ.PickupType.Food:
-            //         PlayerStats stats = GetComponent<PlayerStats>();
-            //         if (stats != null)
-            //         {
-            //             stats.Eat(20); // Restore 20 hunger
-            //             stats.Drink(20); // Restore 20 thirst
-            //             Debug.Log("Picked up food.");
-            //         }
-            //         break;
-            //     default:
-            //         Debug.Log("No valid pickup type.");
-            //         break;
-            // }
             currentInteractable.isCollected = true;
             currentInteractable.HideInteractionPrompt();
             currentInteractable.gameObject.SetActive(false);
