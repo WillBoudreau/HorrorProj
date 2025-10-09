@@ -11,7 +11,6 @@ public class PlayerLook : MonoBehaviour
     private InputAction lookAction;
     [SerializeField] private Rigidbody rb;
     [SerializeField] private PlayerMovement playerMovement;
-    [SerializeField] private float mouseSensitivity = 2f;
     [SerializeField] private float maxLookAngleX = 80f; // Maximum vertical look angle
     [SerializeField] private float minLookAngleX = -80f; // Minimum vertical look angle
     [SerializeField] private Transform cameraTransform; // Assign your camera here
@@ -54,12 +53,20 @@ public class PlayerLook : MonoBehaviour
 
         Vector2 lookInput = lookAction.ReadValue<Vector2>();
 
-        float mouseX = lookInput.x * mouseSensitivity * Time.deltaTime;
-        float mouseY = lookInput.y * mouseSensitivity * Time.deltaTime;
+        float mouseX = lookInput.x * Settings.playerSensitivity * Time.deltaTime;
+        float mouseY = lookInput.y * Settings.playerSensitivity * Time.deltaTime;
+
+        if (Settings.invertYAxis == true)
+        {
+            xRotation += mouseY;
+        }
+        else
+        {
+            xRotation -= mouseY;
+        }
 
         rb.MoveRotation(rb.rotation * Quaternion.Euler(0f, mouseX, 0f));
 
-        xRotation -= mouseY;
         xRotation = Mathf.Clamp(xRotation, minLookAngleX, maxLookAngleX);
 
         cameraTransform.localEulerAngles = new Vector3(xRotation, 0f, 0f);

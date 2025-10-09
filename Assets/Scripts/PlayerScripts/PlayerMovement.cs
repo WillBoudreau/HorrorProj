@@ -15,8 +15,8 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private Transform groundCheck;
     [SerializeField] private Camera playerCamera;
-    public Rigidbody rb;
     [SerializeField] private PlayerInput playerInput;
+    public Rigidbody rb;
     private InputAction moveAction;
 
     private InputAction jumpAction;
@@ -24,7 +24,10 @@ public class PlayerMovement : MonoBehaviour
     void Awake()
     {
         rb = GetComponent<Rigidbody>();
-
+    
+        // Freeze rotation to prevent spinning
+        rb.freezeRotation = true;
+    
         moveAction = playerInput.actions["Move"];
         // jumpAction = playerInput.actions["Jump"];
     }
@@ -32,7 +35,9 @@ public class PlayerMovement : MonoBehaviour
     {
         Move();
     }
-
+    /// <summary>
+    /// Handles player movement based on input.
+    /// </summary>
     void Move()
     {
         Vector2 moveInput = moveAction.ReadValue<Vector2>();

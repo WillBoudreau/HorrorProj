@@ -20,11 +20,20 @@ public class GameManager : MonoBehaviour
         player.GetComponent<PlayerMovement>().enabled = false;
         player.GetComponentInChildren<PlayerLook>().enabled = false;
         player.GetComponent<Rigidbody>().isKinematic = true;
+        player.GetComponent<PlayerInteractions>().enabled = false;
     }
     public void SetPlayerBehaviourTrue()
     {
         player.GetComponent<PlayerMovement>().enabled = true;
         player.GetComponentInChildren<PlayerLook>().enabled = true;
         player.GetComponent<Rigidbody>().isKinematic = false;
+        player.GetComponent<PlayerInteractions>().enabled = true;
+    }
+    /// <summary>
+    /// Quits the application.
+    /// </summary>
+    public void QuitGame()
+    {
+        Application.Quit();
     }
 }
