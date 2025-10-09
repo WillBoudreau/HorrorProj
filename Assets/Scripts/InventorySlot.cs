@@ -84,8 +84,8 @@ public class InventorySlot : MonoBehaviour
         }
         else
         {
-            itemIcon.sprite = null;
-            itemIcon.color = new Color(1, 1, 1, 0); // Make icon invisible
+            SetItemIcon(Color.white);
+            PopulateInteractionOptions(null);
         }
     }
     /// <summary>
@@ -125,4 +125,47 @@ public class InventorySlot : MonoBehaviour
         }
         PopulateDropdown(interactionOptions.ToArray());
     }
+    /// <summary>
+    /// Use the selected interaction from the dropdown.
+    /// </summary>
+    public void UseItem()
+  {
+        int selectedIndex = interactionDropdown.value;
+        if (selectedIndex <= 0 || selectedIndex >= interactionOptions.Count)
+        {
+            Debug.Log("No valid action selected.");
+            return;
+        }
+
+        string selectedAction = interactionOptions[selectedIndex];
+        Debug.Log("Selected Action: " + selectedAction);
+
+        // Implement action logic here
+        switch (selectedAction)
+        {
+            case "Use":
+                Debug.Log("Using item...");
+                playerInventory.RemoveItem(playerInventory.inventoryItems[selectedIndex - 1]);
+                UpdateSlot(null);
+                break;
+            case "Examine":
+                Debug.Log("Examining item...");
+                // Add logic for examining the item
+                break;
+            case "Activate":
+                Debug.Log("Activating item...");
+                // Add logic for activating the item
+                break;
+            case "Drop":
+                Debug.Log("Dropping item...");
+                // Add logic for dropping the item
+                break;
+            default:
+                Debug.Log("Action not recognized.");
+                break;
+        }
+
+        // Hide dropdown after action
+        interactionDropdown.gameObject.SetActive(false);
+  }
 }

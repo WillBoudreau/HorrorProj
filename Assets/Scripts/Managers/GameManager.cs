@@ -7,10 +7,11 @@ public class GameManager : MonoBehaviour
     [Header("Game References")]
     public GameObject player;
     public UIManager uiManager;
+
     void Start()
     {
-        player = GameObject.FindWithTag("Player");
         uiManager = FindObjectOfType<UIManager>();
+        player = GameObject.FindWithTag("Player");
         SetPlayerBehaviourFalse();
         uiManager.SetUI(uiManager.mainMenu);
     }

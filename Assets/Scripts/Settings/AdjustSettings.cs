@@ -17,6 +17,7 @@ public class AdjustSettings : MonoBehaviour
     [Header("Player Settings")]
     [SerializeField] private Slider sensitivitySlider;
     [SerializeField] private Toggle invertYToggle;
+    [SerializeField] private float defaultSensitivity = 50.0f;
 
     [Header("Gameplay Settings")]
     [SerializeField] private Slider difficultySlider;
@@ -25,6 +26,14 @@ public class AdjustSettings : MonoBehaviour
     private Resolution[] availableResolutions;
 
     void Start()
+    {
+        Initialize();
+        OnSensitivityChanged(defaultSensitivity);
+    }
+    /// <summary>
+    ///  Initializes the settings with the default values.
+    /// </summary>
+    void Initialize()
     {
         // Initialize UI elements with current settings
         masterVolumeSlider.value = Settings.masterVolume;
@@ -44,6 +53,7 @@ public class AdjustSettings : MonoBehaviour
                 currentResolutionIndex = i;
             }
         }
+
         resolutionDropdown.value = Settings.screenResolutionIndex;
         resolutionDropdown.RefreshShownValue();
 
@@ -96,5 +106,7 @@ public class AdjustSettings : MonoBehaviour
     public void OnSensitivityChanged(float value)
     {
         Settings.playerSensitivity = value;
+        sensitivitySlider.value = value;
+        Debug.Log("Player sensitivity set to: " + value);
     }
 }
