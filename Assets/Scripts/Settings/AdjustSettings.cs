@@ -17,7 +17,7 @@ public class AdjustSettings : MonoBehaviour
     [Header("Player Settings")]
     [SerializeField] private Slider sensitivitySlider;
     [SerializeField] private Toggle invertYToggle;
-    [SerializeField] private float defaultSensitivity = 50.0f;
+    public float defaultSensitivity = 50.0f;
 
     [Header("Gameplay Settings")]
     [SerializeField] private Slider difficultySlider;
@@ -28,42 +28,41 @@ public class AdjustSettings : MonoBehaviour
     void Start()
     {
         Initialize();
-        OnSensitivityChanged(defaultSensitivity);
     }
     /// <summary>
     ///  Initializes the settings with the default values.
     /// </summary>
     void Initialize()
     {
-        // Initialize UI elements with current settings
-        masterVolumeSlider.value = Settings.masterVolume;
-        musicVolumeSlider.value = Settings.musicVolume;
-        sfxVolumeSlider.value = Settings.sfxVolume;
+        // // Initialize UI elements with current settings
+        // masterVolumeSlider.value = Settings.masterVolume;
+        // musicVolumeSlider.value = Settings.musicVolume;
+        // sfxVolumeSlider.value = Settings.sfxVolume;
 
-        availableResolutions = Screen.resolutions;
-        resolutionDropdown.ClearOptions();
-        int currentResolutionIndex = 0;
-        for (int i = 0; i < availableResolutions.Length; i++)
-        {
-            string option = availableResolutions[i].width + " x " + availableResolutions[i].height;
-            resolutionDropdown.options.Add(new TMP_Dropdown.OptionData(option));
-            if (availableResolutions[i].width == Screen.currentResolution.width &&
-                availableResolutions[i].height == Screen.currentResolution.height)
-            {
-                currentResolutionIndex = i;
-            }
-        }
+        // availableResolutions = Screen.resolutions;
+        // resolutionDropdown.ClearOptions();
+        // int currentResolutionIndex = 0;
+        // for (int i = 0; i < availableResolutions.Length; i++)
+        // {
+        //     string option = availableResolutions[i].width + " x " + availableResolutions[i].height;
+        //     resolutionDropdown.options.Add(new TMP_Dropdown.OptionData(option));
+        //     if (availableResolutions[i].width == Screen.currentResolution.width &&
+        //         availableResolutions[i].height == Screen.currentResolution.height)
+        //     {
+        //         currentResolutionIndex = i;
+        //     }
+        // }
 
-        resolutionDropdown.value = Settings.screenResolutionIndex;
-        resolutionDropdown.RefreshShownValue();
+        // resolutionDropdown.value = Settings.screenResolutionIndex;
+        // resolutionDropdown.RefreshShownValue();
 
-        fullScreenToggle.isOn = Settings.isFullScreen;
+        // fullScreenToggle.isOn = Settings.isFullScreen;
 
         sensitivitySlider.value = Settings.playerSensitivity;
         invertYToggle.isOn = Settings.invertYAxis;
 
-        difficultySlider.value = Settings.difficultyLevel;
-        tutorialToggle.isOn = Settings.isTutorialEnabled;
+        // difficultySlider.value = Settings.difficultyLevel;
+        // tutorialToggle.isOn = Settings.isTutorialEnabled;
     }
 
     public void OnMasterVolumeChanged(float value)

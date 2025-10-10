@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -7,6 +8,7 @@ public class GameManager : MonoBehaviour
     [Header("Game References")]
     public GameObject player;
     public UIManager uiManager;
+    [SerializeField] private AdjustSettings adjustSettings;
 
     void Start()
     {
@@ -14,6 +16,9 @@ public class GameManager : MonoBehaviour
         player = GameObject.FindWithTag("Player");
         SetPlayerBehaviourFalse();
         uiManager.SetUI(uiManager.mainMenu);
+        adjustSettings = FindObjectOfType<AdjustSettings>();
+
+        StartGame();
     }
 
     public void SetPlayerBehaviourFalse()
@@ -29,6 +34,16 @@ public class GameManager : MonoBehaviour
         player.GetComponentInChildren<PlayerLook>().enabled = true;
         player.GetComponent<Rigidbody>().isKinematic = false;
         player.GetComponent<PlayerInteractions>().enabled = true;
+    }
+    /// <summary>
+    /// Initializes the game
+    /// </summary>
+    public void StartGame()
+    {
+        SetPlayerBehaviourTrue();
+        uiManager.SetUI(uiManager.mainMenu);
+        Settings.playerSensitivity = adjustSettings.defaultSensitivity;
+        //adjustSettings.OnSensitivityChanged(adjustSettings.defaultSensitivity);
     }
     /// <summary>
     /// Quits the application.

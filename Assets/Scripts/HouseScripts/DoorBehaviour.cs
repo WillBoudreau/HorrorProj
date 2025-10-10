@@ -4,12 +4,16 @@ using UnityEngine;
 
 public class DoorBehaviour : MonoBehaviour
 {
+    [Header("Door References")]
+    [SerializeField] private HouseGenerator houseGenerator;
     [SerializeField] private LevelManager levelManager; 
     public enum DoorType {Enter, Exit}
     [SerializeField] private DoorType doorType;
+    [SerializeField] private int houseType;
 
     void Start()
     {
+        houseGenerator = FindObjectOfType<HouseGenerator>();
         if (levelManager == null)
         {
             levelManager = FindObjectOfType<LevelManager>();
@@ -21,8 +25,9 @@ public class DoorBehaviour : MonoBehaviour
         {
             if (doorType == DoorType.Enter)
             {
-                levelManager.lastPlayerSpawnPoint = this.gameObject.transform;
+                houseGenerator.houseType = houseType;
                 levelManager.LoadLevel("HouseScene");
+                levelManager.LoadHouse(houseType);
             }
             else if (doorType == DoorType.Exit)
             {

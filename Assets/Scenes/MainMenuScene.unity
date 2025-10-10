@@ -948,7 +948,7 @@ RectTransform:
   m_Father: {fileID: 1859222360}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -1028,7 +1028,7 @@ RectTransform:
   m_Father: {fileID: 1535175929}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 10, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -1290,6 +1290,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 229015563}
   uiManager: {fileID: 0}
+  adjustSettings: {fileID: 0}
 --- !u!4 &812301599
 Transform:
   m_ObjectHideFlags: 0
@@ -2150,7 +2151,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1356932072
 Transform:
   m_ObjectHideFlags: 0
@@ -2710,8 +2711,16 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1693662673}
     - target: {fileID: 5645164122664889994, guid: 850ddabfd9de05b47b6273827af8a2ac, type: 3}
+      propertyPath: jumpForce
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5645164122664889994, guid: 850ddabfd9de05b47b6273827af8a2ac, type: 3}
       propertyPath: moveSpeed
       value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 5645164122664889994, guid: 850ddabfd9de05b47b6273827af8a2ac, type: 3}
+      propertyPath: gravityScale
+      value: 0.3
       objectReference: {fileID: 0}
     - target: {fileID: 5645164122664889994, guid: 850ddabfd9de05b47b6273827af8a2ac, type: 3}
       propertyPath: playerCamera
@@ -3513,6 +3522,7 @@ MonoBehaviour:
   - {fileID: 4189803471470758855, guid: 6e9a135df2cf6904387373575fb8dbc6, type: 3}
   - {fileID: 8951445201531068348, guid: 16a2f7fbf7947934a81ab4a4e63c7fba, type: 3}
   houseSpawnPoint: {fileID: 0}
+  houseType: 0
 --- !u!1 &2014752393
 GameObject:
   m_ObjectHideFlags: 0
@@ -3564,7 +3574,7 @@ MonoBehaviour:
   fullScreenToggle: {fileID: 0}
   sensitivitySlider: {fileID: 894756496}
   invertYToggle: {fileID: 2256362}
-  defaultSensitivity: 50
+  defaultSensitivity: 75
   difficultySlider: {fileID: 0}
   tutorialToggle: {fileID: 0}
 --- !u!1 &2061663054
@@ -3582,7 +3592,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &2061663055
 Transform:
   m_ObjectHideFlags: 0

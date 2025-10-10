@@ -7,6 +7,7 @@ public class HouseGenerator : MonoBehaviour
     [Header("House References")]
     [SerializeField] private List<GameObject> housePrefabs;
     [SerializeField] private Transform houseSpawnPoint;
+    public int houseType;
 
     public void FindHouseSpawnPoint()
     {
@@ -16,7 +17,7 @@ public class HouseGenerator : MonoBehaviour
         }
     }
 
-    public void GenerateHouse()
+    public void GenerateHouse(int houseType)
     {
         if (housePrefabs.Count == 0 || houseSpawnPoint == null)
         {
@@ -24,8 +25,7 @@ public class HouseGenerator : MonoBehaviour
             return;
         }
 
-        int randomIndex = Random.Range(0, housePrefabs.Count);
-        GameObject selectedHouse = housePrefabs[randomIndex];
+        GameObject selectedHouse = housePrefabs[houseType];
         Instantiate(selectedHouse, houseSpawnPoint.position, houseSpawnPoint.rotation);
     }
 }

@@ -80,16 +80,22 @@ public class LevelManager : MonoBehaviour
         if (scene.name == "HouseScene")
         {
             mode = LoadSceneMode.Additive;
-            Debug.Log("Loading House Scene...");
-            houseGenerator.FindHouseSpawnPoint();
-            Debug.Log("Generating House...");
-            houseGenerator.GenerateHouse();
-            Debug.Log("LoadSceneMode: " + mode);    
+            LoadHouse(houseGenerator.houseType);
         }
         levelName = scene.name;
         FindPlayerSpawn();
         SceneManager.sceneLoaded -= OnSceneLoaded;
     }
+    ///<summary>
+    /// Loads the house within the level.
+    /// </summary>
+    /// <param name="houseType"></param>
+    public void LoadHouse(int houseType)
+    {
+        houseGenerator.FindHouseSpawnPoint();
+        houseGenerator.GenerateHouse(houseType);
+    }
+
     /// <summary>
     /// Finds and returns the player spawn point in the level.
     /// </summary>

@@ -1623,8 +1623,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1ca41b5798f508479a7c6a9dc57b52f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DoorBehaviour
+  houseGenerator: {fileID: 0}
   levelManager: {fileID: 0}
   doorType: 1
+  houseType: 0
 --- !u!1 &5178066830925261188
 GameObject:
   m_ObjectHideFlags: 0
@@ -2349,7 +2351,7 @@ GameObject:
   - component: {fileID: 911174960037603546}
   - component: {fileID: 7094701459603794578}
   - component: {fileID: 8829279574065189388}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Floor
   m_TagString: Untagged
   m_Icon: {fileID: 0}

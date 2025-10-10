@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &8174333032317729313
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1314123267806219213}
+  m_Layer: 0
+  m_Name: GroundCheck
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1314123267806219213
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8174333032317729313}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -2.61, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6100008267814856375}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8542323946997781600
 GameObject:
   m_ObjectHideFlags: 0
@@ -106,9 +137,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerInput: {fileID: 1125092395826339647}
+  uiManager: {fileID: 0}
   rb: {fileID: 972873903521355207}
   playerMovement: {fileID: 0}
-  mouseSensitivity: 2
+  maxLookAngleX: 80
+  minLookAngleX: -80
+  cameraTransform: {fileID: 0}
 --- !u!1 &8847810119280146636
 GameObject:
   m_ObjectHideFlags: 0
@@ -146,6 +180,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6233454053813530699}
+  - {fileID: 1314123267806219213}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1125092395826339647
@@ -223,11 +258,11 @@ MonoBehaviour:
   groundCheckRadius: 0.2
   groundLayer:
     serializedVersion: 2
-    m_Bits: 0
-  groundCheck: {fileID: 0}
+    m_Bits: 8
+  groundCheck: {fileID: 1314123267806219213}
   playerCamera: {fileID: 0}
-  rb: {fileID: 0}
   playerInput: {fileID: 1125092395826339647}
+  rb: {fileID: 0}
 --- !u!114 &823149797655411966
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -262,6 +297,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerInventory
   maxItems: 10
   inventoryItems: []
+  inventorySlots: []
+  uiManager: {fileID: 0}
 --- !u!114 &8874935823959499369
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -274,6 +311,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ac35c9a238269e4b9f0f47343fe8399, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  maxHealth: 100
+  currentHealth: 0
+  maxHunger: 100
+  currentHunger: 0
+  maxThirst: 100
+  currentThirst: 0
 --- !u!136 &42339814630615867
 CapsuleCollider:
   m_ObjectHideFlags: 0
