@@ -13,6 +13,7 @@ public class DoorBehaviour : MonoBehaviour
 
     void Start()
     {
+        DetermineHouseType();
         houseGenerator = FindObjectOfType<HouseGenerator>();
         if (levelManager == null)
         {
@@ -34,5 +35,12 @@ public class DoorBehaviour : MonoBehaviour
                 levelManager.LoadLevel("GameplayScene");
             }
         }
+    }
+    /// <summary>
+    /// Determines the house type
+    /// </summary>
+    private void DetermineHouseType()
+    {
+        houseType = Random.Range(0, 3);
     }
 }
