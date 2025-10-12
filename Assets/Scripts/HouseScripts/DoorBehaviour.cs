@@ -9,6 +9,8 @@ public class DoorBehaviour : MonoBehaviour
     [SerializeField] private LevelManager levelManager; 
     public enum DoorType {Enter, Exit}
     [SerializeField] private DoorType doorType;
+    public enum SpaceType { House, Store, Bakery, Park, School, Hospital, MainHouse }
+    [SerializeField] private SpaceType spaceType;
     [SerializeField] private int houseType;
 
     void Start()
@@ -26,9 +28,17 @@ public class DoorBehaviour : MonoBehaviour
         {
             if (doorType == DoorType.Enter)
             {
-                houseGenerator.houseType = houseType;
-                levelManager.LoadLevel("HouseScene");
-                levelManager.LoadHouse(houseType);
+                if(spaceType == SpaceType.MainHouse)
+                {
+                    houseType = 0; // Main house type
+                }
+                else if(spaceType == SpaceType.House)
+                {
+                    houseType = Random.Range(1, 4); // Random house type between 1 and 3
+                    houseGenerator.houseType = houseType;
+                    levelManager.LoadLevel("HouseScene");
+                    levelManager.LoadHouse(houseType);
+                }
             }
             else if (doorType == DoorType.Exit)
             {
