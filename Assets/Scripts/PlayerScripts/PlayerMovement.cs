@@ -66,14 +66,6 @@ public class PlayerMovement : MonoBehaviour
     /// </summary>
     bool IsGrounded()
     {
-        if(Physics.CheckSphere(groundCheck.position, groundCheckRadius, groundLayer))
-        {
-            Debug.Log("Grounded");
-        }
-        else
-        {
-            Debug.Log("Not Grounded");
-        }
         return Physics.CheckSphere(groundCheck.position, groundCheckRadius, groundLayer);
     }
     /// <summary>

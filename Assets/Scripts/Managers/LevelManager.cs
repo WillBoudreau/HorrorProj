@@ -8,6 +8,7 @@ public class LevelManager : MonoBehaviour
     [Header("Level References")]
     [SerializeField] private GameManager gameManager;// Reference to the GameManager
     [SerializeField] private HouseGenerator houseGenerator;// Reference to the HouseGenerator
+    [SerializeField] private FamilyManager familyManager;// Reference to the FamilyManager
     public Transform lastPlayerSpawnPoint;// Last player spawn point
     [Header("Level Settings")]
     public string levelName;// Name of the level to load
@@ -22,6 +23,7 @@ public class LevelManager : MonoBehaviour
     {
         gameManager = FindObjectOfType<GameManager>();
         houseGenerator = FindObjectOfType<HouseGenerator>();
+        familyManager = FindObjectOfType<FamilyManager>();
     }
     /// <summary>
     /// Loads a level by name asynchronously and tracks its loading state.
@@ -38,6 +40,11 @@ public class LevelManager : MonoBehaviour
         else if (name == "GameplayScene")
         {
             gameManager.SetPlayerBehaviourTrue();
+        }
+        else if (name == "HouseMainScene")
+        {
+            familyManager.FindFamilyMembersInScene();
+            gameManager.SetPlayerBehaviourFalse();
         }
         else if (asyncLoad != null)
         {
@@ -81,6 +88,10 @@ public class LevelManager : MonoBehaviour
         {
             mode = LoadSceneMode.Additive;
             LoadHouse(houseGenerator.houseType);
+        }
+        else if (scene.name == "HouseMainScene")
+        {
+            familyManager.FindFamilyMembersInScene();
         }
         levelName = scene.name;
         FindPlayerSpawn();

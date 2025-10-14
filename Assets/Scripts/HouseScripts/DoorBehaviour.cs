@@ -7,6 +7,7 @@ public class DoorBehaviour : MonoBehaviour
     [Header("Door References")]
     [SerializeField] private HouseGenerator houseGenerator;
     [SerializeField] private LevelManager levelManager; 
+    [SerializeField] private UIManager uiManager;
     public enum DoorType {Enter, Exit}
     [SerializeField] private DoorType doorType;
     public enum SpaceType { House, Store, Bakery, Park, School, Hospital, MainHouse }
@@ -17,6 +18,7 @@ public class DoorBehaviour : MonoBehaviour
     {
         DetermineHouseType();
         houseGenerator = FindObjectOfType<HouseGenerator>();
+        uiManager = FindObjectOfType<UIManager>();
         if (levelManager == null)
         {
             levelManager = FindObjectOfType<LevelManager>();
@@ -30,7 +32,8 @@ public class DoorBehaviour : MonoBehaviour
             {
                 if(spaceType == SpaceType.MainHouse)
                 {
-                    houseType = 0; // Main house type
+                    levelManager.LoadLevel("HouseMainScene");
+                    uiManager.SetUI(uiManager.homeMainUI);
                 }
                 else if(spaceType == SpaceType.House)
                 {

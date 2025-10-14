@@ -15,6 +15,7 @@ public class UIManager : MonoBehaviour
     public GameObject questLog;
     public GameObject mapUI;
     public GameObject loadingScreen;
+    public GameObject homeMainUI;
 
     public void SetFalseAllUI()
     {
@@ -28,6 +29,7 @@ public class UIManager : MonoBehaviour
         questLog.SetActive(false);
         mapUI.SetActive(false);
         loadingScreen.SetActive(false);
+        homeMainUI.SetActive(false);
     }
     public void SetUI(GameObject uiElement)
     {
