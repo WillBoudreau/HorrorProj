@@ -30,7 +30,7 @@ public class PlayerLook : MonoBehaviour
     }
     void Update()
     {
-        if(uiManager.mainMenu.activeSelf || uiManager.pauseMenu.activeSelf || uiManager.gameOverScreen.activeSelf || uiManager.settingsMenu.activeSelf || uiManager.inventoryUI.activeSelf)
+        if(uiManager.mainMenu.activeSelf || uiManager.pauseMenu.activeSelf || uiManager.gameOverScreen.activeSelf || uiManager.settingsMenu.activeSelf || uiManager.inventoryUI.activeSelf|| uiManager.homeMainUI.activeSelf)
         {
             if (Cursor.lockState != CursorLockMode.None)
             {

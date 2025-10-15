@@ -14,19 +14,48 @@ public class GameManager : MonoBehaviour
     {
         uiManager = FindObjectOfType<UIManager>();
         player = GameObject.FindWithTag("Player");
-        SetPlayerBehaviourFalse();
+        SetPlayerBehaviourFalse("All");
         uiManager.SetUI(uiManager.mainMenu);
         adjustSettings = FindObjectOfType<AdjustSettings>();
 
         StartGame();
     }
 
-    public void SetPlayerBehaviourFalse()
+    public void SetPlayerBehaviourFalse(string behaviour)
     {
-        player.GetComponent<PlayerMovement>().enabled = false;
-        player.GetComponentInChildren<PlayerLook>().enabled = false;
-        player.GetComponent<Rigidbody>().isKinematic = true;
-        player.GetComponent<PlayerInteractions>().enabled = false;
+        switch (behaviour)
+        {
+            case "Movement":
+                player.GetComponent<PlayerMovement>().enabled = false;
+                player.GetComponent<Rigidbody>().isKinematic = true;
+                break;
+            case "LookW/Cursor":
+                player.GetComponentInChildren<PlayerLook>().enabled = false;
+                break;
+            case "Interactions":
+                player.GetComponent<PlayerInteractions>().enabled = false;
+                break;
+            case "All":
+                player.GetComponent<PlayerMovement>().enabled = false;
+                player.GetComponentInChildren<PlayerLook>().enabled = false;
+                player.GetComponent<Rigidbody>().isKinematic = true;
+                player.GetComponent<PlayerInteractions>().enabled = false;
+                break;
+            case "LookW/O Cursor":
+                player.GetComponentInChildren<PlayerLook>().enabled = false;
+                if (Cursor.lockState != CursorLockMode.None)
+                {
+                    Cursor.lockState = CursorLockMode.None;
+                    Cursor.visible = true;
+                }
+                break;
+            default:
+                player.GetComponent<PlayerMovement>().enabled = false;
+                player.GetComponentInChildren<PlayerLook>().enabled = false;
+                player.GetComponent<Rigidbody>().isKinematic = true;
+                player.GetComponent<PlayerInteractions>().enabled = false;
+                break;
+        }
     }
     public void SetPlayerBehaviourTrue()
     {

@@ -35,7 +35,7 @@ public class LevelManager : MonoBehaviour
         AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(name);
         if (name == "MainMenuScene")
         {
-            gameManager.SetPlayerBehaviourFalse();
+            gameManager.SetPlayerBehaviourFalse("All");
         }
         else if (name == "GameplayScene")
         {
@@ -44,7 +44,7 @@ public class LevelManager : MonoBehaviour
         else if (name == "HouseMainScene")
         {
             familyManager.FindFamilyMembersInScene();
-            gameManager.SetPlayerBehaviourFalse();
+            gameManager.SetPlayerBehaviourFalse("LookW/O Cursor");
         }
         else if (asyncLoad != null)
         {
