@@ -527,7 +527,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 322124438}
         m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
-        m_MethodName: TweenUI
+        m_MethodName: SetFamilyButtonActive
         m_Mode: 2
         m_Arguments:
           m_ObjectArgument: {fileID: 96156963}
@@ -587,7 +587,7 @@ GameObject:
   - component: {fileID: 107394022}
   - component: {fileID: 107394021}
   m_Layer: 5
-  m_Name: Panel
+  m_Name: InventoryPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -883,6 +883,8 @@ MonoBehaviour:
   homeMainUI: {fileID: 855172208}
   supplyButton: {fileID: 1771304734}
   inventoryButton: {fileID: 96156963}
+  supplyPanel: {fileID: 762533092}
+  inventoryPanel: {fileID: 107394019}
 --- !u!1 &335845443
 GameObject:
   m_ObjectHideFlags: 0
@@ -2198,7 +2200,7 @@ GameObject:
   - component: {fileID: 762533095}
   - component: {fileID: 762533094}
   m_Layer: 5
-  m_Name: Panel
+  m_Name: SupplyPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5663,7 +5665,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 322124438}
         m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
-        m_MethodName: TweenUI
+        m_MethodName: SetFamilyButtonActive
         m_Mode: 2
         m_Arguments:
           m_ObjectArgument: {fileID: 1771304734}

@@ -22,6 +22,8 @@ public class UIManager : MonoBehaviour
     [Header("Family UI Elements")]
     [SerializeField] private GameObject supplyButton;
     [SerializeField] private GameObject inventoryButton;
+    [SerializeField] private GameObject supplyPanel;
+    [SerializeField] private GameObject inventoryPanel;
 
     public void SetFalseAllUI()
     {
@@ -50,41 +52,24 @@ public class UIManager : MonoBehaviour
         }
     }
     /// <summary>
-    /// Tweens in the specified UI element from one side to the screen and tweens out all other UI elements.
-    /// </summary>
-    public void TweenUI(GameObject uiElement)
-    {
-        SetFalseAllUI();
-        if (uiElement != null)
-        {
-            if (uiElement.activeSelf == false)
-            {
-                uiElement.SetActive(true);
-            }
-            else
-            {
-                uiElement.SetActive(false);
-            }
-        }
-    }
-    /// <summary>
     /// Family button set active or not
     /// </summary>
     public void SetFamilyButtonActive(GameObject button)
     {
-        if (button == supplyButton)
+        if(button == supplyButton)
         {
-            supplyButton.SetActive(true);
-            inventoryButton.SetActive(false);
-        }
-        else if (button == inventoryButton)
-        {
+            Debug.Log("Supply button clicked");
+            supplyPanel.SetActive(true);
+            inventoryPanel.SetActive(false);
             supplyButton.SetActive(false);
             inventoryButton.SetActive(true);
         }
-        else
+        else if(button == inventoryButton)
         {
-            supplyButton.SetActive(false);
+            Debug.Log("Inventory button clicked");
+            supplyPanel.SetActive(false);
+            inventoryPanel.SetActive(true);
+            supplyButton.SetActive(true);
             inventoryButton.SetActive(false);
         }
     } 
