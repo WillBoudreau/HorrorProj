@@ -28,7 +28,6 @@ public static class Settings
     public static float foodConsumptionRate { get; set; } = 1.0f; // Rate at which food is consumed per member
     public static float waterConsumptionRate { get; set; } = 1.5f; // Rate at which water is consumed per member
     public static float dayLengthInSeconds { get; set; } = 120.0f; // Length of a day in seconds
-
     [Header("Gameplay Settings")]
     public static float difficultyLevel { get; set; } = 1.0f; // 1.0 = Normal, <1.0 = Easy, >1.0 = Hard
     public static bool isTutorialEnabled { get; set; } = true;
