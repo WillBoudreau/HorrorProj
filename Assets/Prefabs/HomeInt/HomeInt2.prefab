@@ -1090,7 +1090,7 @@ Transform:
   m_GameObject: {fileID: 2219582949314719101}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 3.608, y: 7.76, z: 1.46}
+  m_LocalPosition: {x: -4.36, y: 7.76, z: 1.46}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2215,7 +2215,7 @@ GameObject:
   - component: {fileID: 2284600676802595721}
   - component: {fileID: 3727983039330151632}
   - component: {fileID: 2934855608151000829}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Stairs
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5248,7 +5248,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DoorBehaviour
   houseGenerator: {fileID: 0}
   levelManager: {fileID: 0}
+  uiManager: {fileID: 0}
   doorType: 1
+  spaceType: 0
   houseType: 0
 --- !u!65 &4170130210058248249
 BoxCollider:

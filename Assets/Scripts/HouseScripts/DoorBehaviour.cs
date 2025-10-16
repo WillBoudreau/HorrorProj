@@ -23,6 +23,7 @@ public class DoorBehaviour : MonoBehaviour
         {
             levelManager = FindObjectOfType<LevelManager>();
         }
+        houseGenerator.houseType = ChooseHouseType();
     }
     void OnTriggerEnter(Collider other)
     {
@@ -37,10 +38,9 @@ public class DoorBehaviour : MonoBehaviour
                 }
                 else if(spaceType == SpaceType.House)
                 {
-                    houseType = Random.Range(1, 4); // Random house type between 1 and 3
-                    houseGenerator.houseType = houseType;
+                    Debug.Log("Entering house type: " + ChooseHouseType());
                     levelManager.LoadLevel("HouseScene");
-                    levelManager.LoadHouse(houseType);
+                    levelManager.LoadHouse(houseGenerator.houseType);
                 }
             }
             else if (doorType == DoorType.Exit)
@@ -54,6 +54,28 @@ public class DoorBehaviour : MonoBehaviour
     /// </summary>
     private void DetermineHouseType()
     {
-        houseType = Random.Range(0, 3);
+        houseType = Random.Range(0, 1);
+    }
+    /// <summary>
+    /// Choose the specific house type
+    /// </summary>
+    private int ChooseHouseType()
+    {
+        switch (houseType)
+        {
+            case 1:
+                houseGenerator.houseType = 1;
+                break;
+            case 2:
+                houseGenerator.houseType = 2;
+                break;
+            case 3:
+                houseGenerator.houseType = 3;
+                break;
+            default:
+                houseGenerator.houseType = 1;
+                break;
+        }
+        return houseGenerator.houseType;
     }
 }

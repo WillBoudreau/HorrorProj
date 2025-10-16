@@ -9,6 +9,9 @@ public class PlayerInventory : MonoBehaviour
     public List<GameObject> inventoryItems = new List<GameObject>();
     [SerializeField] private List<InventorySlot> inventorySlots = new List<InventorySlot>();
     [SerializeField] private UIManager uiManager;
+    [Header("Item bag")]
+    [SerializeField] private List<InventorySlot> itemBagSlots = new List<InventorySlot>();
+    [SerializeField] private List<GameObject> itemBagItems = new List<GameObject>();
     void Start()
     {
         uiManager = FindObjectOfType<UIManager>();
@@ -19,7 +22,9 @@ public class PlayerInventory : MonoBehaviour
         {
             currentItemCount++;
             inventoryItems.Add(item);
+            itemBagItems.Add(item);
             inventorySlots[currentItemCount - 1].UpdateSlot(item);
+            itemBagSlots[currentItemCount - 1].UpdateSlot(item);
             Debug.Log("Item added. Current item count: " + currentItemCount);
         }
         else
@@ -37,6 +42,7 @@ public class PlayerInventory : MonoBehaviour
         {
             currentItemCount--;
             inventoryItems.Remove(item);
+            itemBagItems.Remove(item);
             Debug.Log("Item removed. Current item count: " + currentItemCount);
         }
         else
