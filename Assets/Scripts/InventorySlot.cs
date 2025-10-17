@@ -2,11 +2,15 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System.Collections.Generic;
+using System.Net.Sockets;
 
 public class InventorySlot : MonoBehaviour
 {
+    [SerializeField] private enum SlotType { Inventory, ItemBag }
+    [SerializeField] private SlotType slotType;
     [Header("Slot References")]
     [SerializeField] private PlayerInventory playerInventory;
+    [SerializeField] private FamilySupply familySupply; 
     [SerializeField] private Image itemIcon;
     [SerializeField] private TMP_Dropdown interactionDropdown;
     [SerializeField] private List<string> interactionOptions = new List<string>();
@@ -20,6 +24,10 @@ public class InventorySlot : MonoBehaviour
         if (interactionDropdown != null)
         {
             interactionDropdown.gameObject.SetActive(false);
+        }
+        if(familySupply == null)
+        {
+            familySupply = FindObjectOfType<FamilySupply>();
         }
     }
 
@@ -100,19 +108,13 @@ public class InventorySlot : MonoBehaviour
             switch (interactable.interactionType)
             {
                 case InteractableOBJ.InteractionType.Pickup:
-                    interactionOptions.Add("-----");
-                    interactionOptions.Add("Use");
-                    interactionOptions.Add("Drop");
+                    interactionOptions = DecideSlotOptions();
                     break;
                 case InteractableOBJ.InteractionType.Examine:
-                    interactionOptions.Add("-----");
-                    interactionOptions.Add("Examine");
-                    interactionOptions.Add("Drop");
+                    interactionOptions = DecideSlotOptions();
                     break;
                 case InteractableOBJ.InteractionType.Activate:
-                    interactionOptions.Add("-----");
-                    interactionOptions.Add("Activate");
-                    interactionOptions.Add("Drop");
+                    interactionOptions = DecideSlotOptions();
                     break;
                 default:
                     interactionOptions.Add("No actions available");
@@ -129,7 +131,7 @@ public class InventorySlot : MonoBehaviour
     /// Use the selected interaction from the dropdown.
     /// </summary>
     public void UseItem()
-  {
+    {
         int selectedIndex = interactionDropdown.value;
         if (selectedIndex <= 0 || selectedIndex >= interactionOptions.Count)
         {
@@ -145,7 +147,7 @@ public class InventorySlot : MonoBehaviour
         {
             case "Use":
                 Debug.Log("Using item...");
-                playerInventory.RemoveItem(playerInventory.inventoryItems[selectedIndex - 1]);
+                DecideItemDestination(selectedAction);
                 UpdateSlot(null);
                 break;
             case "Examine":
@@ -158,7 +160,13 @@ public class InventorySlot : MonoBehaviour
                 break;
             case "Drop":
                 Debug.Log("Dropping item...");
-                // Add logic for dropping the item
+                DecideItemDestination(selectedAction);
+                UpdateSlot(null);
+                break;
+            case "Store":
+                Debug.Log("Storing item...");
+                DecideItemDestination(selectedAction);
+                UpdateSlot(null);
                 break;
             default:
                 Debug.Log("Action not recognized.");
@@ -167,5 +175,68 @@ public class InventorySlot : MonoBehaviour
 
         // Hide dropdown after action
         interactionDropdown.gameObject.SetActive(false);
-  }
+    }
+    /// <summary>
+    /// Decide the interaction options based on the slot type.
+    /// </summary>
+    private List<string> DecideSlotOptions()
+    {
+        switch (slotType)
+        {
+            case SlotType.Inventory:
+                interactionOptions.Add("-----");
+                interactionOptions.Add("Use");
+                interactionOptions.Add("Drop");
+                break;
+            case SlotType.ItemBag:
+                interactionOptions.Add("-----");
+                interactionOptions.Add("Store");
+                interactionOptions.Add("Use");
+                break;
+            default:
+                Debug.Log("Slot type not recognized.");
+                break;
+        }
+        return interactionOptions;
+    }
+    /// <summary>
+    /// Decides where the item goes when the player selects an option. Based on slot type.
+    /// </summary>
+    private void DecideItemDestination(string selectedAction)
+    {
+        switch (slotType)
+        {
+            case SlotType.Inventory:
+                if (selectedAction == "Use")
+                {
+                    
+                }
+                else if (selectedAction == "Drop")
+                {
+                    
+                }
+                break;
+            case SlotType.ItemBag:
+                if (selectedAction == "Store")
+                {
+                    if (familySupply != null)
+                    {
+                        Debug.Log("Storing item to family supply...");
+                        familySupply.AddToSupply(InteractableOBJ.PickupType.Food, 1); // Example for food
+                    }
+                    else
+                    {
+                        Debug.Log("No FamilySupply found in the scene.");
+                    }
+                }
+                else if (selectedAction == "Use")
+                {
+                    
+                }
+                break;
+            default:
+                Debug.Log("Slot type not recognized.");
+                break;
+        }
+    }
 }

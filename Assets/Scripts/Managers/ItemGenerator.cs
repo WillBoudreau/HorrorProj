@@ -22,7 +22,7 @@ public class ItemGenerator : MonoBehaviour
     {
         if(levelManager.levelName == "GameplayScene")
         {
-            InvokeRepeating("SpawnItems", 2f, spawnInterval);
+            InvokeRepeating("SpawnItems", 0f, spawnInterval);
         }
     }
 

@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using TMPro;
 using UnityEngine.EventSystems;
 
+
 public class UIManager : MonoBehaviour
 {
     [Header("UI Elements")]
@@ -24,6 +25,9 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject inventoryButton;
     [SerializeField] private GameObject supplyPanel;
     [SerializeField] private GameObject inventoryPanel;
+    [SerializeField] private Slider foodSupplySlider;
+    [SerializeField] private Slider waterSupplySlider;
+    [SerializeField] private Slider medicineSupplySlider;
 
     public void SetFalseAllUI()
     {
@@ -56,7 +60,7 @@ public class UIManager : MonoBehaviour
     /// </summary>
     public void SetFamilyButtonActive(GameObject button)
     {
-        if(button == supplyButton)
+        if (button == supplyButton)
         {
             Debug.Log("Supply button clicked");
             supplyPanel.SetActive(true);
@@ -64,7 +68,7 @@ public class UIManager : MonoBehaviour
             supplyButton.SetActive(false);
             inventoryButton.SetActive(true);
         }
-        else if(button == inventoryButton)
+        else if (button == inventoryButton)
         {
             Debug.Log("Inventory button clicked");
             supplyPanel.SetActive(false);
@@ -72,5 +76,29 @@ public class UIManager : MonoBehaviour
             supplyButton.SetActive(true);
             inventoryButton.SetActive(false);
         }
-    } 
+    }
+    /// <summary>
+    /// Updates the supply UI sliders.
+    /// </summary>
+    public void UpdateSupplyUI()
+    {
+        Debug.Log("Updating supply UI...");
+        if (foodSupplySlider != null)
+        {
+            foodSupplySlider.maxValue = Settings.maxFoodItems;
+            foodSupplySlider.value = Settings.numOfFoodItems;
+            Debug.Log("Food supply slider updated: " + Settings.numOfFoodItems);
+            Debug.Log(foodSupplySlider.value);
+        }
+        if (waterSupplySlider != null)
+        {
+            waterSupplySlider.maxValue = Settings.maxWaterItems;
+            waterSupplySlider.value = Settings.numOfWaterItems;
+        }
+        if (medicineSupplySlider != null)
+        {
+            medicineSupplySlider.maxValue = Settings.maxMedicineItems;
+            medicineSupplySlider.value = Settings.numOfMedicineItems;
+        }
+    }
 }

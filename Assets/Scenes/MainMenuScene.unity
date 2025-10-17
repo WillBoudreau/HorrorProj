@@ -421,7 +421,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &88268147
 RectTransform:
   m_ObjectHideFlags: 0
@@ -740,7 +740,7 @@ GameObject:
   - component: {fileID: 142958495}
   - component: {fileID: 142958496}
   m_Layer: 5
-  m_Name: Slider (2)
+  m_Name: WaterSlider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -885,6 +885,9 @@ MonoBehaviour:
   inventoryButton: {fileID: 96156963}
   supplyPanel: {fileID: 762533092}
   inventoryPanel: {fileID: 107394019}
+  foodSupplySlider: {fileID: 1405891078}
+  waterSupplySlider: {fileID: 1635446689}
+  medicineSupplySlider: {fileID: 142958496}
 --- !u!1 &335845443
 GameObject:
   m_ObjectHideFlags: 0
@@ -1585,6 +1588,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2180404266539142596, guid: f0947c2e018ef60489405ff18e040f41, type: 3}
+      propertyPath: slotType
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8505470257282956966, guid: f0947c2e018ef60489405ff18e040f41, type: 3}
       propertyPath: m_Name
       value: InventorySlot
@@ -1599,6 +1606,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 1528184581103148039, guid: f0947c2e018ef60489405ff18e040f41, type: 3}
   m_PrefabInstance: {fileID: 446023222}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &446023224 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2180404266539142596, guid: f0947c2e018ef60489405ff18e040f41, type: 3}
+  m_PrefabInstance: {fileID: 446023222}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f012a03be5f2ed4086958404293902b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
 --- !u!1001 &558336012
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1698,6 +1716,10 @@ PrefabInstance:
     - target: {fileID: 1528184581103148039, guid: f0947c2e018ef60489405ff18e040f41, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2180404266539142596, guid: f0947c2e018ef60489405ff18e040f41, type: 3}
+      propertyPath: slotType
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8505470257282956966, guid: f0947c2e018ef60489405ff18e040f41, type: 3}
       propertyPath: m_Name
@@ -2687,6 +2709,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2180404266539142596, guid: f0947c2e018ef60489405ff18e040f41, type: 3}
+      propertyPath: slotType
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8505470257282956966, guid: f0947c2e018ef60489405ff18e040f41, type: 3}
       propertyPath: m_Name
       value: InventorySlot (2)
@@ -2940,6 +2966,17 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 957290819}
   m_CullTransparentMesh: 1
+--- !u!114 &964140236 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2180404266539142596, guid: f0947c2e018ef60489405ff18e040f41, type: 3}
+  m_PrefabInstance: {fileID: 558336012}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f012a03be5f2ed4086958404293902b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
 --- !u!1 &1026447490
 GameObject:
   m_ObjectHideFlags: 0
@@ -2986,6 +3023,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1036420658}
   - component: {fileID: 1036420659}
+  - component: {fileID: 1036420660}
   m_Layer: 0
   m_Name: FamilyManager
   m_TagString: Untagged
@@ -3021,6 +3059,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FamilyManager
   familyMembers: []
+--- !u!114 &1036420660
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1036420657}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9444aafef927ec458226b7876075766, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FamilySupply
+  uiManager: {fileID: 0}
+  familyMembers: []
+  foodItems: 
+  waterItems: 
+  medicineItems: 
 --- !u!1 &1057330938
 GameObject:
   m_ObjectHideFlags: 0
@@ -3654,7 +3709,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1209254661
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4087,7 +4142,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1319819363
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5266,7 +5321,7 @@ GameObject:
   - component: {fileID: 1635446688}
   - component: {fileID: 1635446689}
   m_Layer: 5
-  m_Name: Slider (1)
+  m_Name: MedSlider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5391,9 +5446,25 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 536126662309428893, guid: 22efec167df205a40aebff34a08fc36c, type: 3}
     - target: {fileID: 4595960354829377388, guid: 850ddabfd9de05b47b6273827af8a2ac, type: 3}
+      propertyPath: itemBagSlots.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4595960354829377388, guid: 850ddabfd9de05b47b6273827af8a2ac, type: 3}
       propertyPath: inventorySlots.Array.size
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 4595960354829377388, guid: 850ddabfd9de05b47b6273827af8a2ac, type: 3}
+      propertyPath: 'itemBagSlots.Array.data[0]'
+      value: 
+      objectReference: {fileID: 446023224}
+    - target: {fileID: 4595960354829377388, guid: 850ddabfd9de05b47b6273827af8a2ac, type: 3}
+      propertyPath: 'itemBagSlots.Array.data[1]'
+      value: 
+      objectReference: {fileID: 964140236}
+    - target: {fileID: 4595960354829377388, guid: 850ddabfd9de05b47b6273827af8a2ac, type: 3}
+      propertyPath: 'itemBagSlots.Array.data[2]'
+      value: 
+      objectReference: {fileID: 1716660615}
     - target: {fileID: 4595960354829377388, guid: 850ddabfd9de05b47b6273827af8a2ac, type: 3}
       propertyPath: 'inventorySlots.Array.data[0]'
       value: 
@@ -5580,6 +5651,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 701968223670cf948ab4a76198ae7436, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerInventory
+--- !u!114 &1716660615 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2180404266539142596, guid: f0947c2e018ef60489405ff18e040f41, type: 3}
+  m_PrefabInstance: {fileID: 878187457}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f012a03be5f2ed4086958404293902b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
 --- !u!1 &1771304734
 GameObject:
   m_ObjectHideFlags: 0

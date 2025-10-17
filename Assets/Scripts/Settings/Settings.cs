@@ -22,6 +22,12 @@ public static class Settings
     public static float thirstLevel { get; set; } = 100.0f; // 0 to 100
     public static float hungerRate { get; set; } = 1.0f; // Rate at which hunger decreases
     public static float thirstRate { get; set; } = 1.5f; // Rate at which thirst decreases
+    public static float numOfFoodItems { get; set; } = 0.0f; // Number of food items in inventory
+    public static float numOfWaterItems { get; set; } = 0.0f; // Number of water items in inventory
+    public static float numOfMedicineItems { get; set; } = 0.0f; // Number of medicine items in inventory
+    public static float maxFoodItems { get; set; } = 20.0f;
+    public static float maxWaterItems { get; set; } = 20.0f;
+    public static float maxMedicineItems { get; set; } = 10.0f;
     [Header("Family Management Settings")]
     public static float foodSupply { get; set; } = 100.0f; // Total food supply for the family
     public static float waterSupply { get; set; } = 100.0f; // Total water supply for the family

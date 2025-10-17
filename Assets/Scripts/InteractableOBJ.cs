@@ -10,7 +10,7 @@ public class InteractableOBJ : MonoBehaviour
     [Header("Interaction Settings")]
     public InteractionType interactionType = InteractionType.None;
     public string interactionPrompt = "E";
-    public enum PickupType { None, Key, Health, Food }
+    public enum PickupType { None, Key, Health, Food, Water, Medicine }
     public PickupType pickupType = PickupType.None;
     public bool isCollected = false;
     [Header("UI Elements")]
