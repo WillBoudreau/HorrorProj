@@ -1,18 +1,15 @@
 using UnityEngine;
 
-
-
 public class FamilyMemberBehaviour : MonoBehaviour
 {
   public string memberName;
-  public Settings.HealthStatus healthStatus = new Settings.HealthStatus();
+  public enum HealthStatus { Healthy, Hungry, Sick, Recovering }
+  public  HealthStatus healthStatus;
+  public float hungerLevel = 100.0f; // 0 to 100
+  public float thirstLevel = 100.0f; // 0 to 100
+  public float hungerRate = 1.0f; // Rate at which hunger decreases
+  public float thirstRate = 1.5f; // Rate at which thirst decreases
 
-  void Start()
-  {
-    // Initialize member properties from Settings
-    memberName = Settings.memberName;
-    healthStatus = Settings.healthStatus;
-  }
   /// <summary>
   /// Updates the family members status based on the amount of time, water and food they have.
   /// </summary>
@@ -24,27 +21,30 @@ public class FamilyMemberBehaviour : MonoBehaviour
   public bool UpdateStatus(float timePassed, float foodConsumed, float waterConsumed)
   {
     // Increase hunger and thirst levels based on consumption
-    Settings.hungerLevel += foodConsumed;
-    Settings.thirstLevel += waterConsumed;
+    hungerLevel -= foodConsumed;
+    thirstLevel -= waterConsumed;
 
     // Clamp values between 0 and 100
-    Settings.hungerLevel = Mathf.Clamp(Settings.hungerLevel, 0, 100);
-    Settings.thirstLevel = Mathf.Clamp(Settings.thirstLevel, 0, 100);
+    hungerLevel = Mathf.Clamp(hungerLevel, 0, 100);
+    thirstLevel = Mathf.Clamp(thirstLevel, 0, 100);
 
     // Update health status based on hunger and thirst levels
-    if (Settings.hungerLevel < 20 || Settings.thirstLevel < 20)
+    if (hungerLevel < 20 || thirstLevel < 20)
     {
-      healthStatus = Settings.HealthStatus.Sick;
+      healthStatus = HealthStatus.Sick;
+      Debug.Log($"{memberName} - Hunger: {hungerLevel}, Thirst: {thirstLevel}, Status: {healthStatus}");  
       return false; // Member is sick
     }
-    else if (Settings.hungerLevel < 50 || Settings.thirstLevel < 50)
+    else if (hungerLevel < 50 || thirstLevel < 50)
     {
-      healthStatus = Settings.HealthStatus.Hungry;
+      healthStatus = HealthStatus.Hungry;
+      Debug.Log($"{memberName} - Hunger: {hungerLevel}, Thirst: {thirstLevel}, Status: {healthStatus}");  
       return true; // Member is hungry but not sick
     }
     else
     {
-      healthStatus = Settings.HealthStatus.Healthy;
+      healthStatus = HealthStatus.Healthy;
+      Debug.Log($"{memberName} - Hunger: {hungerLevel}, Thirst: {thirstLevel}, Status: {healthStatus}");  
       return true; // Member is healthy
     }
   }
@@ -53,7 +53,7 @@ public class FamilyMemberBehaviour : MonoBehaviour
   /// </summary>
   void OnMouseDown()
   {
-    Debug.Log($"Member: {memberName}, Health: {healthStatus}, Hunger: {Settings.hungerLevel}, Thirst: {Settings.thirstLevel}");
+    Debug.Log($"Member: {memberName}, Health: {healthStatus}, Hunger: {hungerLevel}, Thirst: {thirstLevel}");
   }
   /// <summary>
   /// When a family member is sick for too long, they may die.

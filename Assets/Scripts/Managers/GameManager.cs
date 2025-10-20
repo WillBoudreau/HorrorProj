@@ -1,6 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
+
+
+//using System.Diagnostics;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -8,11 +11,17 @@ public class GameManager : MonoBehaviour
     [Header("Game References")]
     public GameObject player;
     public UIManager uiManager;
+    [SerializeField] private FamilyManager familyManager;
+    [SerializeField] private DayNightCycle dayNightCycle;
     [SerializeField] private AdjustSettings adjustSettings;
 
     void Start()
     {
         uiManager = FindObjectOfType<UIManager>();
+        dayNightCycle = FindObjectOfType<DayNightCycle>();
+        familyManager = FindObjectOfType<FamilyManager>();
+        //familyMembers = new List<FamilyMemberBehaviour>(FindObjectsOfType<FamilyMemberBehaviour>());
+
         player = GameObject.FindWithTag("Player");
         SetPlayerBehaviourFalse("All");
         uiManager.SetUI(uiManager.mainMenu);
@@ -64,6 +73,29 @@ public class GameManager : MonoBehaviour
         player.GetComponent<Rigidbody>().isKinematic = false;
         player.GetComponent<PlayerInteractions>().enabled = true;
     }
+    ///<summary>
+    /// move to the next day
+    ///</summary>
+    public void MoveToNextDay()
+    {
+        // Move the day/night cycle forward
+        //dayNightCycle.MoveToNextDay();
+
+        familyManager.FindFamilyMembersInScene();
+
+        // Update the status of all family members
+        foreach (var member in familyManager.familyMembers)
+        {
+            if(member == null)
+            {
+                Debug.LogWarning($"Family member {member} is null.");
+            }
+            Debug.Log("Updating status for " + member.memberName);
+            member.UpdateStatus(Settings.timeOfDay, member.hungerRate * Settings.foodConsumptionRate, member.thirstRate * Settings.waterConsumptionRate);
+            Debug.Log(member.memberName + " status: " + member.healthStatus);
+        }
+    }
+
     /// <summary>
     /// Initializes the game
     /// </summary>

@@ -886,8 +886,8 @@ MonoBehaviour:
   supplyPanel: {fileID: 762533092}
   inventoryPanel: {fileID: 107394019}
   foodSupplySlider: {fileID: 1405891078}
-  waterSupplySlider: {fileID: 1635446689}
-  medicineSupplySlider: {fileID: 142958496}
+  waterSupplySlider: {fileID: 142958496}
+  medicineSupplySlider: {fileID: 1635446689}
 --- !u!1 &335845443
 GameObject:
   m_ObjectHideFlags: 0
@@ -2400,6 +2400,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 229015563}
   uiManager: {fileID: 0}
+  dayNightCycle: {fileID: 0}
+  familyMembers: []
   adjustSettings: {fileID: 0}
 --- !u!4 &812301599
 Transform:
@@ -3405,7 +3407,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1095987894}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 812301598}
+        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+        m_MethodName: MoveToNextDay
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1095987894
 MonoBehaviour:
   m_ObjectHideFlags: 0

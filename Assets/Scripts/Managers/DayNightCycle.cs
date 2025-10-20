@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using System.ComponentModel;
 
 public class DayNightCycle : MonoBehaviour
 {
@@ -10,7 +11,7 @@ public class DayNightCycle : MonoBehaviour
     [SerializeField] private AnimationCurve lightIntensityCurve; // Curve for light intensity over the day
     [SerializeField] private Material skyboxMaterial; // Skybox material to change based on time of day
     [SerializeField] private Material nightSkybox; // Skybox material for night
-    private float timeOfDay = 0f; // Current time of day in seconds
+  
 
     void Update()
     {
@@ -22,10 +23,10 @@ public class DayNightCycle : MonoBehaviour
     /// </summary>
     private void UpdateTimeOfDay()
     {
-        timeOfDay += Time.deltaTime;
-        if (timeOfDay >= dayDuration)
+        Settings.timeOfDay += Time.deltaTime;
+        if (Settings.timeOfDay >= Settings.dayLengthInSeconds)
         {
-            timeOfDay = 0f; // Reset to start of day
+            Settings.timeOfDay = 0f; // Reset to start of day
         }
     }
     /// <summary>
@@ -33,7 +34,7 @@ public class DayNightCycle : MonoBehaviour
     /// </summary>
     private void UpdateLighting()
     {
-        float timePercent = timeOfDay / dayDuration;
+        float timePercent = Settings.timeOfDay / Settings.dayLengthInSeconds;
         if (directionalLight != null)
         {
             directionalLight.color = lightColorGradient.Evaluate(timePercent);
@@ -72,4 +73,14 @@ public class DayNightCycle : MonoBehaviour
         }
         RenderSettings.skybox = targetSkybox;
     }
+    /// <summary>
+    /// Moves the cycle to the next day immediately.
+    /// </summary>
+    public void MoveToNextDay()
+    {
+        Settings.timeOfDay = 0f;
+        UpdateLighting();
+        StartCoroutine(FadeSkybox());
+    }
+    ///
 }
