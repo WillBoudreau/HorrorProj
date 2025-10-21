@@ -9,6 +9,7 @@ public class LevelManager : MonoBehaviour
     [SerializeField] private GameManager gameManager;// Reference to the GameManager
     [SerializeField] private HouseGenerator houseGenerator;// Reference to the HouseGenerator
     [SerializeField] private FamilyManager familyManager;// Reference to the FamilyManager
+    [SerializeField] private UIManager uiManager;// Reference to the UIManager
     public Transform lastPlayerSpawnPoint;// Last player spawn point
     [Header("Level Settings")]
     public string levelName;// Name of the level to load
@@ -33,7 +34,16 @@ public class LevelManager : MonoBehaviour
     {
         SceneManager.sceneLoaded += OnSceneLoaded;
         AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(name);
-        if (name == "MainMenuScene")
+        if (asyncLoad != null)
+        {
+            Debug.Log("Scene is loading: " + name);
+            scenesLoading.Add(asyncLoad);
+            uiManager.SetUI(uiManager.loadingScreen);
+            uiManager.UpdateLoadingScreen();
+            StartCoroutine(TrackSceneLoading(asyncLoad));
+            Debug.Log("Loading scene: " + name);
+        }
+        else if (name == "MainMenuScene")
         {
             gameManager.SetPlayerBehaviourFalse("All");
         }
@@ -45,12 +55,6 @@ public class LevelManager : MonoBehaviour
         {
             familyManager.FindFamilyMembersInScene();
             gameManager.SetPlayerBehaviourFalse("LookW/O Cursor");
-        }
-        else if (asyncLoad != null)
-        {
-            scenesLoading.Add(asyncLoad);
-            StartCoroutine(TrackSceneLoading(asyncLoad));
-            Debug.Log("Loading scene: " + name);
         }
     }
     /// <summary>

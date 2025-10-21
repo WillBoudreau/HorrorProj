@@ -45,7 +45,6 @@ public class ItemGenerator : MonoBehaviour
             {
                 GameObject newItem = Instantiate(itemPrefab, randomPosition, Quaternion.identity);
                 spawnedItems.Add(newItem);
-                Debug.Log("Spawned item at: " + randomPosition);
                 break;
             }
             else

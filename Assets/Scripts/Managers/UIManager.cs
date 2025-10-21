@@ -6,6 +6,7 @@ using TMPro;
 using UnityEngine.EventSystems;
 
 
+
 public class UIManager : MonoBehaviour
 {
     [Header("UI Elements")]
@@ -20,6 +21,10 @@ public class UIManager : MonoBehaviour
     public GameObject mapUI;
     public GameObject loadingScreen;
     public GameObject homeMainUI;
+
+    [Header("Loading Screen")]
+    [SerializeField] private LoadingScreenBehaviour loadingScreenBehaviour;
+
     [Header("Family UI Elements")]
     [SerializeField] private GameObject supplyButton;
     [SerializeField] private GameObject inventoryButton;
@@ -40,7 +45,7 @@ public class UIManager : MonoBehaviour
         dialogueBox.SetActive(false);
         questLog.SetActive(false);
         mapUI.SetActive(false);
-        loadingScreen.SetActive(false);
+        //loadingScreen.SetActive(false);
         homeMainUI.SetActive(false);
     }
     /// <summary>
@@ -99,6 +104,19 @@ public class UIManager : MonoBehaviour
         {
             medicineSupplySlider.maxValue = Settings.maxMedicineItems;
             medicineSupplySlider.value = Settings.numOfMedicineItems;
+        }
+    }
+    /// <summary>
+    /// Updates the loading screen progress bar.
+    /// </summary>
+    public void UpdateLoadingScreen()
+    {
+        Debug.Log("Updating loading screen...");
+        if (loadingScreenBehaviour != null)
+        {
+            Debug.Log("Starting loading sequence...");
+            StartCoroutine(loadingScreenBehaviour.StartLoadingSequence());
+            Debug.Log("Loading sequence started.");
         }
     }
 }

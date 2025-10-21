@@ -14,12 +14,14 @@ public class GameManager : MonoBehaviour
     [SerializeField] private FamilyManager familyManager;
     [SerializeField] private DayNightCycle dayNightCycle;
     [SerializeField] private AdjustSettings adjustSettings;
+    [SerializeField] private LoadingScreenBehaviour loadingScreenBehaviour;
 
     void Start()
     {
         uiManager = FindObjectOfType<UIManager>();
         dayNightCycle = FindObjectOfType<DayNightCycle>();
         familyManager = FindObjectOfType<FamilyManager>();
+        loadingScreenBehaviour = FindObjectOfType<LoadingScreenBehaviour>();
         //familyMembers = new List<FamilyMemberBehaviour>(FindObjectsOfType<FamilyMemberBehaviour>());
 
         player = GameObject.FindWithTag("Player");
