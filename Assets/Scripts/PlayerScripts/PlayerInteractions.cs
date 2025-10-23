@@ -1,25 +1,32 @@
+
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class PlayerInteractions : MonoBehaviour
 {
     [Header("Interaction Settings")]
-    public float interactionRange = 3f;
+    public float interactionRange = 20f;
+    [Header("Interaction References")]
+    [SerializeField] private UIManager uiManager;
     public LayerMask interactableLayer;
     [SerializeField] private Camera playerCamera;
     [SerializeField] private InteractableOBJ currentInteractable;
     [SerializeField] private PlayerInput playerInput;
     public PlayerInventory playerInventory;
     private InputAction interactAction;
+    private InputAction fireAction;
     void Awake()
     {
         playerInput = GetComponent<PlayerInput>();
         playerInventory = GetComponent<PlayerInventory>();
+        uiManager = FindObjectOfType<UIManager>();
         interactAction = playerInput.actions["OnInteract"];
+        fireAction = playerInput.actions["Fire"];
     }
     void Update()
     {
         Interact();
+        OnMouseDown();
     }
     /// <summary>
     /// Checks for interactable objects in front of the player.
@@ -63,7 +70,7 @@ public class PlayerInteractions : MonoBehaviour
         {
             playerInventory.ToggleInventory();
         }
-    } 
+    }
     /// <summary>
     /// Picks up the specified item and adds it to the player's inventory.
     /// </summary>
@@ -75,6 +82,27 @@ public class PlayerInteractions : MonoBehaviour
             currentInteractable.isCollected = true;
             currentInteractable.HideInteractionPrompt();
             currentInteractable.gameObject.SetActive(false);
+        }
+    }
+    /// <summary>
+    /// When the player clicks a family member, display their status.
+    /// </summary>
+    void OnMouseDown()
+    {
+        if (fireAction.triggered)
+        {
+            Debug.Log("Fire action triggered");
+            Ray ray = playerCamera.ScreenPointToRay(Mouse.current.position.ReadValue());
+            RaycastHit hit;
+            if (Physics.Raycast(ray, out hit, interactionRange))
+            {
+                Debug.Log("Raycast hit: " + hit.collider.name);
+                FamilyMemberBehaviour familyMember = hit.collider.GetComponent<FamilyMemberBehaviour>();
+                if (familyMember != null)
+                {
+                    uiManager.UpdateFamilyMemberStatusUI(familyMember);
+                }
+            }
         }
     }
 }

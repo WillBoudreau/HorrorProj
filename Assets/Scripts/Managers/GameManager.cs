@@ -70,10 +70,13 @@ public class GameManager : MonoBehaviour
     }
     public void SetPlayerBehaviourTrue()
     {
-        player.GetComponent<PlayerMovement>().enabled = true;
-        player.GetComponentInChildren<PlayerLook>().enabled = true;
-        player.GetComponent<Rigidbody>().isKinematic = false;
-        player.GetComponent<PlayerInteractions>().enabled = true;
+        if(!loadingScreenBehaviour.isLoading)
+        {
+            player.GetComponent<PlayerMovement>().enabled = true;
+            player.GetComponentInChildren<PlayerLook>().enabled = true;
+            player.GetComponent<Rigidbody>().isKinematic = false;
+            player.GetComponent<PlayerInteractions>().enabled = true;
+        }
     }
     ///<summary>
     /// move to the next day

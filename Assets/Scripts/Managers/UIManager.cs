@@ -34,6 +34,12 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Slider waterSupplySlider;
     [SerializeField] private Slider medicineSupplySlider;
 
+    [Header("Family Status Elements")]
+    public TextMeshProUGUI familyMemberNameText;
+    public TextMeshProUGUI familyMemberHealthText;
+    public TextMeshProUGUI familyMemberHungerText;
+    public TextMeshProUGUI familyMemberThirstText;
+
     public void SetFalseAllUI()
     {
         mainMenu.SetActive(false);
@@ -117,6 +123,26 @@ public class UIManager : MonoBehaviour
             Debug.Log("Starting loading sequence...");
             StartCoroutine(loadingScreenBehaviour.StartLoadingSequence());
             Debug.Log("Loading sequence started.");
+        }
+    }
+    /// <summary>
+    /// Updates the family member status UI. Depending on the selected family member, it updates the name, health, hunger, and thirst texts.
+    /// </summary>
+    public void UpdateFamilyMemberStatusUI(FamilyMemberBehaviour selectedMember)
+    {
+        if (selectedMember != null)
+        {
+            familyMemberNameText.text = selectedMember.memberName;
+            familyMemberHungerText.text = "Hunger: " + selectedMember.hungerLevel.ToString();
+            familyMemberThirstText.text = "Thirst: " + selectedMember.thirstLevel.ToString();
+            familyMemberHealthText.text = "Health: " + selectedMember.healthStatus.ToString();
+        }
+        else
+        {
+            familyMemberNameText.text = "No Member Selected";
+            familyMemberHungerText.text = "Hunger:";
+            familyMemberThirstText.text = "Thirst:";
+            familyMemberHealthText.text = "Health Status:";
         }
     }
 }

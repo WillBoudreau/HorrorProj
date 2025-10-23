@@ -47,10 +47,7 @@ public class LevelManager : MonoBehaviour
         {
             gameManager.SetPlayerBehaviourFalse("All");
         }
-        else if (name == "GameplayScene")
-        {
-            gameManager.SetPlayerBehaviourTrue();
-        }
+       
         else if (name == "HouseMainScene")
         {
             familyManager.FindFamilyMembersInScene();
@@ -96,6 +93,10 @@ public class LevelManager : MonoBehaviour
         else if (scene.name == "HouseMainScene")
         {
             familyManager.FindFamilyMembersInScene();
+        }
+        else if (scene.name == "GameplayScene")
+        {
+            gameManager.SetPlayerBehaviourTrue();
         }
         levelName = scene.name;
         FindPlayerSpawn();

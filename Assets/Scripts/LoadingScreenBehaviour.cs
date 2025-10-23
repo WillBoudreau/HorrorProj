@@ -10,7 +10,8 @@ public class LoadingScreenBehaviour : MonoBehaviour
     [SerializeField] private TextMeshProUGUI loadingText;
     [SerializeField] private Image loadingBar;
     [SerializeField] private CanvasGroup canvasGroup;
-    [SerializeField] private float fadeDuration = 1f;
+    [SerializeField] private float fadeInDuration = 1f;
+    [SerializeField] private float fadeOutDuration = 1f;
     [SerializeField] private float displayDuration = 0.5f;
     [SerializeField] private float loadingScreenDuration = 2f;
     public bool isLoading = false;
@@ -26,16 +27,14 @@ public class LoadingScreenBehaviour : MonoBehaviour
 
     public IEnumerator StartLoadingSequence()
     {
-        Debug.Log("Loading sequence initiated.");
+        SetLoadingText("Loading...");
         isLoading = true;
         yield return StartCoroutine(FadeIn());
-        SetLoadingText("Loading...");
         for (float progress = 0; progress <= 1; progress += 0.1f)
         {
             LoadingBarProgress(progress);
             yield return new WaitForSeconds(0.2f);
         }
-        SetLoadingText("Load Complete!");
         yield return new WaitForSeconds(0.5f);
         yield return StartCoroutine(FadeOut());
     }
@@ -48,22 +47,21 @@ public class LoadingScreenBehaviour : MonoBehaviour
         {
             canvasGroup.alpha = 0f;
         }
-        while (elapsed < fadeDuration)
+        while (elapsed < fadeInDuration)
         {
             elapsed += Time.deltaTime;
-            canvasGroup.alpha = Mathf.Clamp01(elapsed / fadeDuration);
+            canvasGroup.alpha = Mathf.Clamp01(elapsed / fadeInDuration);
             yield return null;
         }
     }
     private IEnumerator FadeOut()
     {
-        float duration = fadeDuration; // Duration of the fade
         float elapsed = 0f;
 
-        while (elapsed < duration)
+        while (elapsed < fadeOutDuration)
         {
             elapsed += Time.deltaTime;
-            canvasGroup.alpha = 1 - Mathf.Clamp01(elapsed / duration);
+            canvasGroup.alpha = 1 - Mathf.Clamp01(elapsed / fadeOutDuration);
             yield return null;
         }
         isLoading = false;
