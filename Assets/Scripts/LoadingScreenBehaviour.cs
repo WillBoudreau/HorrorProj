@@ -18,26 +18,37 @@ public class LoadingScreenBehaviour : MonoBehaviour
 
     private void LoadingBarProgress(float progress)
     {
-        loadingBar.fillAmount = progress;
+        loadingBar.transform.localScale = new Vector3(progress, 1, 1);
+        Debug.Log("Loading progress: " + (progress * 100f) + "%");
     }
     private void SetLoadingText(string text)
     {
         loadingText.text = text;
     }
 
+
+    /// <summary>
+    /// Starts the loading screen sequence.
+    /// </summary>
+    /// <returns></returns>
     public IEnumerator StartLoadingSequence()
     {
         SetLoadingText("Loading...");
         isLoading = true;
         yield return StartCoroutine(FadeIn());
-        for (float progress = 0; progress <= 1; progress += 0.1f)
+        for (float progress = 0; progress <= 1; progress += 1f)
         {
+            yield return new WaitForSeconds(0.2f);
             LoadingBarProgress(progress);
             yield return new WaitForSeconds(0.2f);
         }
         yield return new WaitForSeconds(0.5f);
         yield return StartCoroutine(FadeOut());
     }
+    /// <summary>
+    /// Fades in the loading screen.
+    /// </summary>
+    /// <returns></returns>
     private IEnumerator FadeIn()
     {
         Debug.Log("Fading in loading screen.");
@@ -54,6 +65,10 @@ public class LoadingScreenBehaviour : MonoBehaviour
             yield return null;
         }
     }
+    /// <summary>
+    /// Fades out the loading screen.
+    /// </summary>
+    /// <returns></returns>
     private IEnumerator FadeOut()
     {
         float elapsed = 0f;

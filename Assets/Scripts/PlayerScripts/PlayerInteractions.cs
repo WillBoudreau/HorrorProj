@@ -1,6 +1,7 @@
 
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class PlayerInteractions : MonoBehaviour
 {
@@ -20,6 +21,8 @@ public class PlayerInteractions : MonoBehaviour
         playerInput = GetComponent<PlayerInput>();
         playerInventory = GetComponent<PlayerInventory>();
         uiManager = FindObjectOfType<UIManager>();
+
+
         interactAction = playerInput.actions["OnInteract"];
         fireAction = playerInput.actions["Fire"];
     }
@@ -96,13 +99,52 @@ public class PlayerInteractions : MonoBehaviour
             RaycastHit hit;
             if (Physics.Raycast(ray, out hit, interactionRange))
             {
-                Debug.Log("Raycast hit: " + hit.collider.name);
-                FamilyMemberBehaviour familyMember = hit.collider.GetComponent<FamilyMemberBehaviour>();
-                if (familyMember != null)
+                if (hit.collider.CompareTag("FamilyMember"))
                 {
-                    uiManager.UpdateFamilyMemberStatusUI(familyMember);
+                    FamilyMemberBehaviour member = hit.collider.GetComponent<FamilyMemberBehaviour>();
+                    if (member != null)
+                    {
+                        Debug.Log("Clicked on family member: " + member.memberName);
+                        uiManager.UpdateFamilyMemberStatusUI(member);
+                    }
                 }
             }
         }
     }
+        
+    /// <summary>
+    /// Check if the player is interacting with a specific family icon.
+    /// </summary>
+    public bool IsInteractingWithIcon(FamilyIcon familyIcon)
+    {
+        Ray ray = playerCamera.ScreenPointToRay(Mouse.current.position.ReadValue());
+        RaycastHit hit;
+        if (Physics.Raycast(ray, out hit, interactionRange))
+        {
+            FamilyIcon hitIcon = hit.collider.GetComponent<FamilyIcon>();
+            if (hitIcon != null && hitIcon == familyIcon)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+    /// <summary>
+    /// Move the icon around with the mouse. So long as the player is holding down the fire button.
+    /// </summary>
+    public void DragIconWithMouse(FamilyIcon familyIcon)
+    {
+        if (fireAction.IsPressed())
+        {
+            Ray ray = playerCamera.ScreenPointToRay(Mouse.current.position.ReadValue());
+            RaycastHit hit;
+            if (Physics.Raycast(ray, out hit, interactionRange))
+            {
+                Vector3 newIconPosition = hit.point;
+                familyIcon.transform.position = newIconPosition;
+                Debug.Log("Dragging icon to position: " + newIconPosition);
+            }
+        }
+    }
+
 }

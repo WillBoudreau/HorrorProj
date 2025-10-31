@@ -21,6 +21,7 @@ public class UIManager : MonoBehaviour
     public GameObject mapUI;
     public GameObject loadingScreen;
     public GameObject homeMainUI;
+    public GameObject familySortUI;
 
     [Header("Loading Screen")]
     [SerializeField] private LoadingScreenBehaviour loadingScreenBehaviour;
@@ -53,6 +54,7 @@ public class UIManager : MonoBehaviour
         mapUI.SetActive(false);
         //loadingScreen.SetActive(false);
         homeMainUI.SetActive(false);
+        familySortUI.SetActive(false);
     }
     /// <summary>
     /// Sets the specified UI element as active and hides all other UI elements.
