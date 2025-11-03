@@ -10,6 +10,8 @@ public class GameManager : MonoBehaviour
 {
     [Header("Game References")]
     public GameObject player;
+    public PlayerStats playerStats;
+    public PlayerDeathStats playerDeathStats;
     public UIManager uiManager;
     [SerializeField] private FamilyManager familyManager;
     [SerializeField] private DayNightCycle dayNightCycle;
@@ -25,11 +27,26 @@ public class GameManager : MonoBehaviour
         //familyMembers = new List<FamilyMemberBehaviour>(FindObjectsOfType<FamilyMemberBehaviour>());
 
         player = GameObject.FindWithTag("Player");
+        playerStats = player.GetComponent<PlayerStats>();
+        playerDeathStats = FindObjectOfType<PlayerDeathStats>();
         SetPlayerBehaviourFalse("All");
         uiManager.SetUI(uiManager.mainMenu);
         adjustSettings = FindObjectOfType<AdjustSettings>();
 
         StartGame();
+    }
+    void Update()
+    {
+        SetGameOver();
+    }
+
+    public void SetGameOver()
+    {
+        if(playerStats.isDead)
+        {
+            SetPlayerBehaviourFalse("All");
+            uiManager.SetUI(uiManager.gameOverScreen);
+        }
     }
 
     public void SetPlayerBehaviourFalse(string behaviour)

@@ -1,3 +1,4 @@
+
 using UnityEngine;
 
 public class PlayerStats : MonoBehaviour
@@ -9,12 +10,19 @@ public class PlayerStats : MonoBehaviour
     public int currentHunger;
     public int maxThirst = 100;
     public int currentThirst;
+    public bool isDead = false;
+    [Header("Player Stats references")]
+    public PlayerDeathStats deathStats;
 
     void Start()
     {
+        deathStats = FindObjectOfType<PlayerDeathStats>();
+
         currentHealth = maxHealth;
         currentHunger = maxHunger;
         currentThirst = maxThirst;
+
+        isDead = false;
     }
     /// <summary>
     /// Handles player death.
@@ -28,10 +36,28 @@ public class PlayerStats : MonoBehaviour
             Die();
         }
     }
-    void Die()
+    public void Die()
     {
         Debug.Log("Player has died.");
-        // Implement death behavior (e.g., respawn, game over screen)
+        isDead = true;
+        if (currentHealth <= 0)
+        {
+            deathStats.SetDeathMessage("Health Depleted");
+        }
+        else if (currentHunger <= 0)
+        {
+            deathStats.SetDeathMessage("Starvation");
+        }
+        else if (currentThirst <= 0)
+        {
+            deathStats.SetDeathMessage("Dehydration");
+        }
+        else
+        {
+            deathStats.SetDeathMessage("Unknown Forces");
+        }
+        Debug.Log("Death message set.");
+        Debug.Log(currentHealth + " " + currentHunger + " " + currentThirst);
     }
     public void Eat(int foodValue)
     {

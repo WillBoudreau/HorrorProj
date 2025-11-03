@@ -3,12 +3,17 @@ using UnityEngine;
 public class FamilyMemberBehaviour : MonoBehaviour
 {
   public string memberName;
-  public enum HealthStatus { Healthy, Hungry, Sick, Recovering }
+  public enum HealthStatus { Healthy, Hungry, Sick, Recovering, Dead }
   public  HealthStatus healthStatus;
   public float hungerLevel = 100.0f; // 0 to 100
   public float thirstLevel = 100.0f; // 0 to 100
   public float hungerRate = 1.0f; // Rate at which hunger decreases
   public float thirstRate = 1.5f; // Rate at which thirst decreases
+  [Header("Family level thresholds")]
+  public float sickThreshold = 20.0f;
+  public float hungryThreshold = 50.0f;
+  public float recoveryThreshold = 70.0f;
+  public float deathThreshold = 0.0f;
 
   /// <summary>
   /// Updates the family members status based on the amount of time, water and food they have.
@@ -29,39 +34,53 @@ public class FamilyMemberBehaviour : MonoBehaviour
     thirstLevel = Mathf.Clamp(thirstLevel, 0, 100);
 
     // Update health status based on hunger and thirst levels
-    if (hungerLevel < 20 || thirstLevel < 20)
+    if (hungerLevel < sickThreshold && hungerLevel > deathThreshold || thirstLevel < sickThreshold && thirstLevel > deathThreshold)
     {
       healthStatus = HealthStatus.Sick;
-      Debug.Log($"{memberName} - Hunger: {hungerLevel}, Thirst: {thirstLevel}, Status: {healthStatus}");  
+      Debug.Log($"{memberName} - Hunger: {hungerLevel}, Thirst: {thirstLevel}, Status: {healthStatus}");
       return false; // Member is sick
     }
-    else if (hungerLevel < 50 || thirstLevel < 50)
+    else if (hungerLevel < hungryThreshold && hungerLevel > deathThreshold || thirstLevel < hungryThreshold && thirstLevel > deathThreshold)
     {
       healthStatus = HealthStatus.Hungry;
-      Debug.Log($"{memberName} - Hunger: {hungerLevel}, Thirst: {thirstLevel}, Status: {healthStatus}");  
+      Debug.Log($"{memberName} - Hunger: {hungerLevel}, Thirst: {thirstLevel}, Status: {healthStatus}");
       return true; // Member is hungry but not sick
+    }
+    else if (hungerLevel <= deathThreshold || thirstLevel <= deathThreshold)
+    {
+      healthStatus = HealthStatus.Dead;
+      Die();
+      return false; // Member has died
     }
     else
     {
       healthStatus = HealthStatus.Healthy;
-      Debug.Log($"{memberName} - Hunger: {hungerLevel}, Thirst: {thirstLevel}, Status: {healthStatus}");  
+      Debug.Log($"{memberName} - Hunger: {hungerLevel}, Thirst: {thirstLevel}, Status: {healthStatus}");
       return true; // Member is healthy
     }
-  }
-  /// <summary>
-  /// When a family member is clicked, display their status.
-  /// </summary>
-  void OnMouseDown()
-  {
-    Debug.Log($"Member: {memberName}, Health: {healthStatus}, Hunger: {hungerLevel}, Thirst: {thirstLevel}");
   }
   /// <summary>
   /// When a family member is sick for too long, they may die.
   /// </summary>
   public void Die()
   {
-    Debug.Log($"{memberName} has died.");
-    Destroy(gameObject);
+    if (memberName == "Player")
+    {
+      PlayerStats playerStats = FindObjectOfType<PlayerStats>();
+      if (playerStats != null)
+      {
+        playerStats.Die();
+      }
+      else
+      {
+        Debug.LogError("PlayerStats component not found in the scene.");
+      }
+    }
+    else
+    {
+      Debug.Log($"{memberName} has died due to poor health.");
+      Destroy(gameObject);
+    }
   }
 
 }
