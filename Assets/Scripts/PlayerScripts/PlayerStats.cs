@@ -4,15 +4,16 @@ using UnityEngine;
 public class PlayerStats : MonoBehaviour
 {
     [Header("Player Stats")]
-    public int maxHealth = 100;
-    public int currentHealth;
-    public int maxHunger = 100;
-    public int currentHunger;
-    public int maxThirst = 100;
-    public int currentThirst;
+    public float maxHealth = 100;
+    public float currentHealth;
+    public float maxHunger = 100;
+    public float currentHunger;
+    public float maxThirst = 100;
+    public float currentThirst;
     public bool isDead = false;
     [Header("Player Stats references")]
     public PlayerDeathStats deathStats;
+    public FamilyMemberBehaviour familyMemberBehaviour;
 
     void Start()
     {
@@ -23,6 +24,17 @@ public class PlayerStats : MonoBehaviour
         currentThirst = maxThirst;
 
         isDead = false;
+    }
+    ///<summary>
+    /// Update the stats based on the family member behaviour.
+    /// </summary>
+    void Update()
+    {
+        if (familyMemberBehaviour != null)
+        {
+            currentHunger = familyMemberBehaviour.hungerLevel;
+            currentThirst = familyMemberBehaviour.thirstLevel;
+        }
     }
     /// <summary>
     /// Handles player death.
@@ -51,10 +63,6 @@ public class PlayerStats : MonoBehaviour
         else if (currentThirst <= 0)
         {
             deathStats.SetDeathMessage("Dehydration");
-        }
-        else
-        {
-            deathStats.SetDeathMessage("Unknown Forces");
         }
         Debug.Log("Death message set.");
         Debug.Log(currentHealth + " " + currentHunger + " " + currentThirst);

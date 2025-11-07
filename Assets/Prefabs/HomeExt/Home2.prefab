@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 5101846034388767488}
   - component: {fileID: 2885331136418389910}
   - component: {fileID: 2309445205836064972}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Door
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -368,8 +368,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1ca41b5798f508479a7c6a9dc57b52f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DoorBehaviour
+  houseGenerator: {fileID: 0}
   levelManager: {fileID: 0}
+  uiManager: {fileID: 0}
   doorType: 0
+  spaceType: 0
+  houseType: 0
 --- !u!1 &5661256372618420799
 GameObject:
   m_ObjectHideFlags: 0
@@ -385,7 +389,7 @@ GameObject:
   - component: {fileID: 4823068188294426568}
   - component: {fileID: 8235562746811441988}
   - component: {fileID: 6358258026670279503}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Home2
   m_TagString: House
   m_Icon: {fileID: 0}
@@ -764,7 +768,7 @@ GameObject:
   - component: {fileID: 5755014156455526190}
   - component: {fileID: 7935543890585576293}
   - component: {fileID: 3319326757362123678}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}

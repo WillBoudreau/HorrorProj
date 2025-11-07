@@ -12,6 +12,7 @@ TagManager:
   - 'Health '
   - Sortable
   - FamilyMember
+  - PatrolPoint
   layers:
   - Default
   - TransparentFX
@@ -20,8 +21,8 @@ TagManager:
   - Water
   - UI
   - Interactable
-  - 
-  - 
+  - Home
+  - PatrolPoint
   - 
   - 
   - 

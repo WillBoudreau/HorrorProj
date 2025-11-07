@@ -11027,6 +11027,14 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 8874935823959499369, guid: 850ddabfd9de05b47b6273827af8a2ac, type: 3}
+      propertyPath: deathStats
+      value: 
+      objectReference: {fileID: 1693662680}
+    - target: {fileID: 8874935823959499369, guid: 850ddabfd9de05b47b6273827af8a2ac, type: 3}
+      propertyPath: familyMemberBehaviour
+      value: 
+      objectReference: {fileID: 1693662676}
     m_RemovedComponents:
     - {fileID: 367114746075464618, guid: 850ddabfd9de05b47b6273827af8a2ac, type: 3}
     m_RemovedGameObjects:
@@ -11142,6 +11150,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerDeathStats
   deathMessageText: {fileID: 255581959}
+  causeOfDeathText: {fileID: 302187115}
   deathMessages:
   - You have met a tragic end.
   - Your journey has come to an untimely conclusion.

@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 6172422425754590262}
   - component: {fileID: 3921563861199141599}
   - component: {fileID: 9023222786547297964}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Home1
   m_TagString: House
   m_Icon: {fileID: 0}
@@ -371,7 +371,7 @@ GameObject:
   - component: {fileID: 8555309769113588634}
   - component: {fileID: 4675833108282739327}
   - component: {fileID: 9137106869186832908}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -724,5 +724,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1ca41b5798f508479a7c6a9dc57b52f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  houseGenerator: {fileID: 0}
   levelManager: {fileID: 0}
+  uiManager: {fileID: 0}
   doorType: 0
+  spaceType: 0
+  houseType: 0
