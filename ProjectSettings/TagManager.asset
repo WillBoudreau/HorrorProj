@@ -13,6 +13,7 @@ TagManager:
   - Sortable
   - FamilyMember
   - PatrolPoint
+  - EnemySoldier
   layers:
   - Default
   - TransparentFX
