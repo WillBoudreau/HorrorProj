@@ -7,6 +7,7 @@ public class PlayerInteractions : MonoBehaviour
 {
     [Header("Interaction Settings")]
     public float interactionRange = 20f;
+    public bool isInteracting = false;
     [Header("Interaction References")]
     [SerializeField] private UIManager uiManager;
     public LayerMask interactableLayer;
@@ -45,16 +46,13 @@ public class PlayerInteractions : MonoBehaviour
             CollectItem(currentInteractable);
             Debug.Log("Found interactable: " + currentInteractable.name);
         }
-        else
-        {
-            OpenInventory();
-        }
     }
     /// <summary>
     /// Handles player input for interactions.
     /// </summary>
     public void Interact()
     {
+        ToggleInteraction();
         if (currentInteractable == null && interactAction.triggered)
         {
             InteractWithObj();
@@ -62,6 +60,20 @@ public class PlayerInteractions : MonoBehaviour
         else if (currentInteractable != null && interactAction.triggered)
         {
             InteractWithObj();
+        }
+    }
+    /// <summary>
+    /// Toggle the interaction state of the player.
+    /// </summary>
+    private void ToggleInteraction()
+    {
+        if(isInteracting && interactAction.triggered)
+        {
+            isInteracting = false;
+        }
+        else if (!isInteracting && interactAction.triggered)
+        {
+            isInteracting = true;
         }
     }
     ///<summary>

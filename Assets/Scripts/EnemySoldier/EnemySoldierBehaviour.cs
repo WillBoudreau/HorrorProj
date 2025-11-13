@@ -38,9 +38,10 @@ public class EnemySoldierBehaviour : MonoBehaviour
         switch (enemyState)
         {
             case EnemyState.Idle:
+                enemyMovement.ScanArea();
                 break;
             case EnemyState.Searching:
-                enemyMovement.MoveTowards(enemyMovement.TargetPoint());
+                // enemyMovement.MoveTowards(enemyMovement.TargetPoint());
                 enemyInteraction.Search();
                 break;
             case EnemyState.Patrolling:
@@ -54,6 +55,7 @@ public class EnemySoldierBehaviour : MonoBehaviour
                 }
                 break;
             case EnemyState.Attacking:
+                enemyInteraction.Attack();
                 break;
         }
     }

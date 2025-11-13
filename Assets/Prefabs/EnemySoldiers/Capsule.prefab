@@ -162,8 +162,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68fb8c9e6616c954d859215450e635cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  enemyState: 0
   enemyInteraction: {fileID: 0}
   enemyMovement: {fileID: 0}
+  maxHealth: 100
+  currentHealth: 0
 --- !u!114 &6343805146851819594
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -176,11 +179,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7def3a482f73b45499e8a739b4fa46d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  rotationSpeed: 700
-  patrolPoints: []
+  rotationSpeed: 15
   currentPatrolIndex: 0
   maxPatrolPoints: 10
   navMeshAgent: {fileID: 5606494405937162395}
+  targetPointRadius: 1.5
+  patrolPoints: []
+  targetPoint: {fileID: 0}
+  distFromNearestSoldier: 4
 --- !u!114 &4679875059311420797
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -193,16 +199,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d00a632df785a24db8327d60969b1ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyInteraction
-  currentState: 0
-  maxHealth: 100
-  currentHealth: 0
   hasGun: 0
   detectionRange: 10
   attackRange: 2
   interactionRange: 2
   grabPoint: {fileID: 965150141428824008}
   gunObject: {fileID: 0}
-  enemyMovement: {fileID: 6343805146851819594}
 --- !u!54 &4931797912898087861
 Rigidbody:
   m_ObjectHideFlags: 0

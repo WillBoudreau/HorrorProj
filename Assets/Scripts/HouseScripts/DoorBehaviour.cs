@@ -6,8 +6,9 @@ public class DoorBehaviour : MonoBehaviour
 {
     [Header("Door References")]
     [SerializeField] private HouseGenerator houseGenerator;
-    [SerializeField] private LevelManager levelManager; 
+    [SerializeField] private LevelManager levelManager;
     [SerializeField] private UIManager uiManager;
+    [SerializeField] private PlayerInteractions playerInteractions;
     public enum DoorType {Enter, Exit}
     [SerializeField] private DoorType doorType;
     public enum SpaceType { House, Store, Bakery, Park, School, Hospital, MainHouse }
@@ -17,8 +18,11 @@ public class DoorBehaviour : MonoBehaviour
     void Start()
     {
         DetermineHouseType();
+        
         houseGenerator = FindObjectOfType<HouseGenerator>();
         uiManager = FindObjectOfType<UIManager>();
+        playerInteractions = FindObjectOfType<PlayerInteractions>();
+
         if (levelManager == null)
         {
             levelManager = FindObjectOfType<LevelManager>();
@@ -27,7 +31,7 @@ public class DoorBehaviour : MonoBehaviour
     }
     void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Player") && playerInteractions.isInteracting)
         {
             if (doorType == DoorType.Enter)
             {

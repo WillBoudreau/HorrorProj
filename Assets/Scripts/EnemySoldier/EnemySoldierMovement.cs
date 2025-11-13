@@ -5,22 +5,23 @@ using UnityEngine.AI;
 public class EnemySoldierMovement : MonoBehaviour
 {
     [Header("Movement Settings")]
-    public float rotationSpeed = 700f;// Speed at which the enemy soldier rotates
+    public float rotationSpeed = 15f;// Speed at which the enemy soldier rotates
     [SerializeField] private int currentPatrolIndex = 0;// Current index of the patrol point
     [SerializeField] private int maxPatrolPoints = 10;// Maximum number of patrol points
     [SerializeField] private NavMeshAgent navMeshAgent;// Reference to the NavMeshAgent component
     [SerializeField] private float targetPointRadius = 1.5f;// Radius for the enemy to 
+    public bool guardingPoint = false;// Whether the enemy soldier is guarding a specific point
+    public bool soldiersNearby = false;// Whether there are other soldiers nearby
     [Header("Patrol Settings")]
     public Transform[] patrolPoints;// Array of patrol points for the enemy soldier
     public Transform targetPoint;// Current target patrol point
-    [SerializeField] private float distFromNearestSoldier = 5f;// Minimum distance to maintain from other enemy soldiers
+    [SerializeField] private float maxDistFromNearestSoldier = 5f;// Minimum distance to maintain from other enemy soldiers
     private void Start()
     {
         FindPatrolPoints();
     }
     private void FixedUpdate()
     {
-
         targetPoint = patrolPoints[currentPatrolIndex];
         float distanceToTarget = Vector3.Distance(transform.position, targetPoint.position);
 
@@ -72,24 +73,31 @@ public class EnemySoldierMovement : MonoBehaviour
     /// </summary>
     public void MaintainDistWithSoldiers()
     {
-        Collider[] hitColliders = Physics.OverlapSphere(transform.position, distFromNearestSoldier);
+        Collider[] hitColliders = Physics.OverlapSphere(transform.position, maxDistFromNearestSoldier);
         foreach (var hitCollider in hitColliders)
         {
             if (hitCollider.CompareTag("EnemySoldier") && hitCollider.gameObject != this.gameObject)
             {
-                Vector3 directionToSoldier = hitCollider.transform.position - transform.position;
-                float distanceToSoldier = directionToSoldier.magnitude;
+                guardingPoint = false;
+                soldiersNearby = true;
+                float distance = Vector3.Distance(transform.position, hitCollider.transform.position);
 
-                if (distanceToSoldier > distFromNearestSoldier)
+                if (distance > maxDistFromNearestSoldier)
                 {
-                    Vector3 moveDirection = directionToSoldier.normalized;
-                    Vector3 newPosition = transform.position + moveDirection * (distanceToSoldier - distFromNearestSoldier);
-                    navMeshAgent.SetDestination(newPosition);
+                    Debug.Log("Moving closer to nearby soldier.");
+                    soldiersNearby = false;
+                    navMeshAgent.SetDestination(hitCollider.transform.position);
                 }
                 else
                 {
-                    MoveTowards(targetPoint);
+                    Debug.Log("Maintaining position near nearby soldier.");
+                    navMeshAgent.SetDestination(targetPoint.position);
                 }
+            }
+            else if(!hitCollider.CompareTag("EnemySoldier") && soldiersNearby == false)
+            {
+                guardingPoint = true;
+                GuardPoint();
             }
         }
     }
@@ -109,9 +117,46 @@ public class EnemySoldierMovement : MonoBehaviour
         }
         return null;
     }
+    /// <summary>
+    /// When the enemy isn't moving, stand still, but scan the area.
+    /// </summary>
+    public void ScanArea()
+    {
+        navMeshAgent.SetDestination(transform.position);
+        gameObject.transform.Rotate(0, rotationSpeed * Time.deltaTime, 0);
+    }
+    /// <summary>
+    /// When guarding a point, find the nearest cover and move towards it.
+    /// </summary>
+    private void GuardPoint()
+    {
+        if (guardingPoint)
+        {
+            Collider[] hitColliders = Physics.OverlapSphere(transform.position, targetPointRadius);
+            Transform nearestCover = null;
+            float nearestDistance = Mathf.Infinity;
+
+            foreach (var hitCollider in hitColliders)
+            {
+                if (hitCollider.CompareTag("Cover"))
+                {
+                    float distance = Vector3.Distance(transform.position, hitCollider.transform.position);
+                    if (distance < nearestDistance)
+                    {
+                        nearestDistance = distance;
+                        nearestCover = hitCollider.transform;
+                    }
+                }
+            }
+            if (nearestCover != null)
+            {
+                navMeshAgent.SetDestination(nearestCover.position);
+            }
+        }
+    }
     void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.blue;
-        Gizmos.DrawWireSphere(transform.position, distFromNearestSoldier);
+        Gizmos.DrawWireSphere(transform.position, maxDistFromNearestSoldier);
     }
 }
