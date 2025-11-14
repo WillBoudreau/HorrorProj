@@ -9,6 +9,7 @@ public class DoorBehaviour : MonoBehaviour
     [SerializeField] private LevelManager levelManager;
     [SerializeField] private UIManager uiManager;
     [SerializeField] private PlayerInteractions playerInteractions;
+    [SerializeField] private GameObject interactionPrompt;
     public enum DoorType {Enter, Exit}
     [SerializeField] private DoorType doorType;
     public enum SpaceType { House, Store, Bakery, Park, School, Hospital, MainHouse }
@@ -28,9 +29,12 @@ public class DoorBehaviour : MonoBehaviour
             levelManager = FindObjectOfType<LevelManager>();
         }
         houseGenerator.houseType = ChooseHouseType();
+
+        interactionPrompt.SetActive(false);
     }
-    void OnTriggerEnter(Collider other)
+    void OnTriggerStay(Collider other)
     {
+        interactionPrompt.SetActive(true);
         if (other.CompareTag("Player") && playerInteractions.isInteracting)
         {
             if (doorType == DoorType.Enter)
@@ -52,6 +56,10 @@ public class DoorBehaviour : MonoBehaviour
                 levelManager.LoadLevel("GameplayScene");
             }
         }
+    }
+    void OnTriggerExit(Collider other)
+    {
+        interactionPrompt.SetActive(false);
     }
     /// <summary>
     /// Determines the house type

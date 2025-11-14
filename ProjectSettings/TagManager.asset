@@ -14,6 +14,7 @@ TagManager:
   - FamilyMember
   - PatrolPoint
   - EnemySoldier
+  - Cover
   layers:
   - Default
   - TransparentFX
