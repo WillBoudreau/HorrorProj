@@ -4,28 +4,13 @@ using System.Collections.Generic;
 public class ItemGenerator : MonoBehaviour
 {
     [Header("Item Generation Settings")]
-    [SerializeField] private LevelManager levelManager;// Reference to the LevelManager
     [SerializeField] private GameObject[] itemPrefabs;
     [SerializeField] private List<GameObject> spawnedItems = new List<GameObject>();
-    [SerializeField] private float spawnInterval = 0.025f;
+    public float spawnInterval = 0.025f;
     [SerializeField] private int maxFoodItems = 10;
     [Header("Item spawn zone settings")]
     [SerializeField] private Vector3 spawnZoneCenter;
     [SerializeField] private Vector3 spawnZoneSize;
-
-    private void Start()
-    {
-        levelManager = FindObjectOfType<LevelManager>();
-
-    }
-    void FixedUpdate()
-    {
-        if(levelManager.levelName == "GameplayScene")
-        {
-            InvokeRepeating("SpawnItems", 0f, spawnInterval);
-        }
-    }
-
     /// <summary>
     /// Spawns the food items around the map at random locations
     /// </summary>
@@ -53,6 +38,17 @@ public class ItemGenerator : MonoBehaviour
                 randomPosition = PickSpawnPoint();
             }
         }
+    }
+    /// <summary>
+    /// Despawns all spawned items
+    /// </summary>
+    public void DespawnItems()
+    {
+        foreach (GameObject item in spawnedItems)
+        {
+            Destroy(item);
+        }
+        spawnedItems.Clear();
     }
     /// <summary>
     /// Picks a spawn point

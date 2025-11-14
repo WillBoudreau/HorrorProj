@@ -10,6 +10,7 @@ public class LevelManager : MonoBehaviour
     [SerializeField] private HouseGenerator houseGenerator;// Reference to the HouseGenerator
     [SerializeField] private FamilyManager familyManager;// Reference to the FamilyManager
     [SerializeField] private UIManager uiManager;// Reference to the UIManager
+    [SerializeField] private ItemGenerator itemGenerator;// Reference to the ItemGenerator
     public Transform lastPlayerSpawnPoint;// Last player spawn point
     [Header("Level Settings")]
     public string levelName;// Name of the level to load
@@ -25,6 +26,7 @@ public class LevelManager : MonoBehaviour
         gameManager = FindObjectOfType<GameManager>();
         houseGenerator = FindObjectOfType<HouseGenerator>();
         familyManager = FindObjectOfType<FamilyManager>();
+        itemGenerator = FindObjectOfType<ItemGenerator>();
     }
     /// <summary>
     /// Loads a level by name asynchronously and tracks its loading state.
@@ -42,14 +44,16 @@ public class LevelManager : MonoBehaviour
             uiManager.UpdateLoadingScreen();
             StartCoroutine(TrackSceneLoading(asyncLoad));
             Debug.Log("Loading scene: " + name);
+
+            itemGenerator.DespawnItems();
         }
         else if (name == "MainMenuScene")
         {
             gameManager.SetPlayerBehaviourFalse("All");
         }
-       
         else if (name == "HouseMainScene")
         {
+            itemGenerator.DespawnItems();
             familyManager.FindFamilyMembersInScene();
             gameManager.SetPlayerBehaviourFalse("LookW/O Cursor");
         }
@@ -97,6 +101,7 @@ public class LevelManager : MonoBehaviour
         else if (scene.name == "GameplayScene")
         {
             gameManager.SetPlayerBehaviourTrue();
+            itemGenerator.InvokeRepeating("SpawnItems", 0f, itemGenerator.spawnInterval);
         }
         levelName = scene.name;
         FindPlayerSpawn();

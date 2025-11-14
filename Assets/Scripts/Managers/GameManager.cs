@@ -93,6 +93,8 @@ public class GameManager : MonoBehaviour
             player.GetComponentInChildren<PlayerLook>().enabled = true;
             player.GetComponent<Rigidbody>().isKinematic = false;
             player.GetComponent<PlayerInteractions>().enabled = true;
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
         }
     }
     ///<summary>
@@ -116,6 +118,12 @@ public class GameManager : MonoBehaviour
             member.UpdateStatus(Settings.timeOfDay, member.hungerRate * Settings.foodConsumptionRate, member.thirstRate * Settings.waterConsumptionRate);
             Debug.Log(member.memberName + " status: " + member.healthStatus);
         }
+
+        SetPlayerBehaviourTrue();
+
+        // Reset time of day
+        Settings.timeOfDay = 0f;
+        uiManager.SetUI(uiManager.hud);
     }
 
     /// <summary>
@@ -126,7 +134,6 @@ public class GameManager : MonoBehaviour
         SetPlayerBehaviourTrue();
         uiManager.SetUI(uiManager.mainMenu);
         Settings.playerSensitivity = adjustSettings.defaultSensitivity;
-        //adjustSettings.OnSensitivityChanged(adjustSettings.defaultSensitivity);
     }
     /// <summary>
     /// Quits the application.
